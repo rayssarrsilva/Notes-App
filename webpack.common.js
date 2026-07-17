@@ -1,0 +1,29 @@
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "node:path";
+
+export default {
+  entry: "./src/index.js",
+  
+  output: {
+    filename: "main.js",
+    path: path.resolve(process.cwd(), "dist"),
+    clean: true,
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+        template: "./src/index.html",
+    }),
+  ],
+  module: {
+    rules: [
+        {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+        },
+        {
+        test: /\.(png|svg|jpg|jpeg|gif|mp4|webm|ogg)$/i,
+        type: "asset/resource",
+        }
+    ],
+  },
+};
