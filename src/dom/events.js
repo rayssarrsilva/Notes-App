@@ -1,1 +1,0 @@
-// centralize events (clicks, submits, keys)
