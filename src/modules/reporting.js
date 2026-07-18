@@ -1,3 +1,6 @@
 // report about the deleted tasks and projects
-// how many tasks and projects were completed
-// how many tasks and projects are open
+// all completed projects
+// all completed tasks
+// all pending tasks
+// search all tasks by date
+// search all tasks by priority
