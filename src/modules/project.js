@@ -2,9 +2,8 @@
 //Methods to add/remove tasks inside the project.
 
 export default class Project {
-    constructor(create, edit, deleteProject){
-        this.create = create;
-        this.edit = edit;
-        this.deleteProject = deleteProject;
+    constructor(name, description){
+        this.name = name;
+        this.description = description;
     }
 };
