@@ -1,8 +1,9 @@
-import Header from "./dom/Header.js";
 import "./styles/header.css";
+
+import InitialPage from "./pages/InitialPage.js";
 
 const app = document.querySelector("#app");
 
-app.append(
-    header()
+document.body.append(
+    InitialPage()
 );
