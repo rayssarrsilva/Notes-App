@@ -1,7 +1,7 @@
 // Create, edit, delete, mark complete and see details of task - class task
 
 export default class Task {
-    constructor(id, name, description, endDate, priority, projects = "") {
+    constructor(name, description, endDate, priority, projects = "") {
         this.id = crypto.randomUUID();
         this.name = name;
         this.description = description;
