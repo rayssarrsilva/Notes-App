@@ -7,5 +7,6 @@ export default class Task {
         this.description = description;
         this.endDate = endDate;
         this.projects = projects;
+        this.priority = priority;
     }
 };
