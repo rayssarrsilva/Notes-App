@@ -32,6 +32,7 @@ export default function Header(){
 
         const span = document.createElement("span");
         span.textContent = button.title;
+        span.classList.add("span-header");
 
         btn.append(img, span);
         nav.append(btn);

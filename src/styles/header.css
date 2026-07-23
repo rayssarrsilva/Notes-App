@@ -1,4 +1,36 @@
-.headerIcon {
-    width: 22px;
-    height: 16px;
+* {
+    --yellow: #B3851C;
+}
+
+img.header-icon {
+    width: auto;
+    height: 34px;
+}
+
+.header-button {
+    border: none;
+    background-color: white;
+    display: flex;
+}
+
+.span-header {
+    padding-left: 20px;
+    font-size: 17px;
+}
+
+nav.nav-header {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    padding-top: 50px;
+}
+
+.header-button {
+    display: flex;
+    align-items: center;
+    color: var(--yellow);
+}
+
+.header-icon {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(64%) saturate(713%) hue-rotate(10deg) brightness(71%) contrast(91%);
 }
