@@ -9,34 +9,35 @@ export default function Header(){
 
     const nav = document.createElement("nav");
 
+    nav.classList.add("nav-header");
+    header.classList.add("header");
+
     const buttons = [
-        { title: "Add project", icon: addProjecticon},
-        { title: "My projects", icon: myProjectsicon},
-        { title: "Add Task", icon: addTaskicon},
-        { title: "My Tasks", icon: myTaskicon},
-        { title: "Reporting", icon: reportingicon}
+        { title: "Add project", icon: addProjecticon, id: "addP"},
+        { title: "My projects", icon: myProjectsicon, id: "myP"},
+        { title: "Add Task", icon: addTaskicon, id: "addT"},
+        { title: "My Tasks", icon: myTaskicon, id: "myT"},
+        { title: "Reporting", icon: reportingicon, id: "reporting"}
     ];
 
     buttons.forEach(button => {
         const btn = document.createElement("button");
-        const img = document.createElement("img");
-        const span = document.createElement("span");
-
         btn.classList.add("header-button");
-        nav.classList.add("nav-header");
-        header.classList.add("header");
-        
-        span.textContent = button.title;
+        btn.id = button.id;
 
+        const img = document.createElement("img");
         img.src = button.icon;
+        img.alt = button.title;
+        img.classList.add("header-icon");
 
-        img.classList.add("headerIcon");
+        const span = document.createElement("span");
+        span.textContent = button.title;
 
         btn.append(img, span);
         nav.append(btn);
     });
 
-    header.appendChild(nav);
+    header.append(nav);
 
     return header;
 }
