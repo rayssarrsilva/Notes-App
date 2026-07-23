@@ -8,5 +8,6 @@ export default class Task {
         this.endDate = endDate;
         this.projects = projects;
         this.priority = priority;
+        this.complete = false;
     }
 };

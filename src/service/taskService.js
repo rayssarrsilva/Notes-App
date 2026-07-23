@@ -37,4 +37,14 @@ export default class TaskService {
             return null;
         }
     }
+
+    markComplete(id) {
+        const task = this.tasks.find(task => task.id === id);
+        task && (task.complete = true);
+    }
+
+    markIncomplete(id) {
+        const task = this.tasks.find(task => task.id === id);
+        task?.complete = false;
+    }
 }
