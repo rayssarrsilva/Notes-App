@@ -6,7 +6,7 @@ export default class TaskService {
         this.tasks = [];
     }
 
-    setTask(task){
+    addTask(task){
         this.tasks.push(task);
     }
 
@@ -14,7 +14,7 @@ export default class TaskService {
         return this.tasks;
     }
 
-    setRemove(id){
+    removeTask(id){
         const index = this.tasks.findIndex(task => task.id === id);
         if (index !== -1){
             this.tasks.splice(index, 1);
