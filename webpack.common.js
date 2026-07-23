@@ -27,7 +27,10 @@ export default {
         {
           test: /\.(woff2?|eot|ttf|otf)$/i,
           type: "asset/resource",
-        }
+          generator: {
+            filename: "asset/fonts/[name][ext]",
+          },
+        },
     ],
   },
 };
