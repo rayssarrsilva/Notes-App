@@ -1,24 +1,7 @@
-/* ==========================================================================
-   initial.css
-   Estilos da Initial Page / Add Task (dom/initial)
-
-   Fonte: Grandstander (assumido que os @font-face de outros pesos, ex:
-   Regular/700, já existem no seu arquivo de fontes — usei font-weight
-   400 e 700 abaixo).
-
-   Paleta:
-   --color-gold        (#B3851C) -> destaques, botões, título, end date
-   --color-green       (#00682B) -> barra lateral do right-panel, prioridade "high"
-   --color-gray        (#A3A3A3) -> textos secundários, bordas suaves
-   Cores extras de prioridade (não informadas, assumi um low/medium/high
-   padrão semáforo): vermelho para High, o próprio dourado para Medium,
-   verde institucional para Low/ok.
-   ========================================================================== */
-
 :root {
     --color-gold: #B3851C;
     --color-green: #00682B;
-    --color-green-soft: #9FC0A9; /* tint claro do verde, usado na barra do right-panel (assumido, não informado) */
+    --color-green-soft: #9FC0A9; 
     --color-gray: #A3A3A3;
     --color-black: #1a1a1a;
     --color-bg-card: #ffffff;
@@ -40,10 +23,6 @@
     --font-hand: 'Grandstander', cursive, sans-serif;
 }
 
-/* ==========================================================================
-   CONTAINER GERAL
-   ========================================================================== */
-
 .initial-content {
     display: flex;
     align-items: flex-start;
@@ -59,10 +38,6 @@
     box-sizing: border-box;
     font-family: var(--font-hand);
 }
-
-/* ==========================================================================
-   LEFT PANEL
-   ========================================================================== */
 
 .left-panel {
     display: flex;
@@ -92,7 +67,6 @@
     transform: skewX(-6deg);
 }
 
-/* ---- Form card ---- */
 
 .task-form {
     background: var(--color-bg-card);
@@ -106,7 +80,6 @@
     gap: 28px;
 }
 
-/* Left column: name + description */
 
 .form-left-col {
     display: flex;
@@ -151,8 +124,6 @@
     border-color: var(--color-gold);
 }
 
-/* Right column: end date / priority / projects */
-
 .form-right-col {
     display: flex;
     flex-direction: column;
@@ -173,7 +144,6 @@
     color: var(--color-black);
 }
 
-/* End date -> pill dourado, texto branco (dd/mm/aaaa) */
 
 .task-date {
     border: none;
@@ -193,7 +163,6 @@
     cursor: pointer;
 }
 
-/* Priority */
 
 .priority-label-container {
     display: flex;
@@ -221,8 +190,6 @@
 .task-priority option[value="medium"] { color: var(--priority-medium); }
 .task-priority option[value="low"] { color: var(--priority-low); }
 
-/* Projects -> pill cinza claro */
-
 .task-project {
     border: none;
     border-radius: 999px;
@@ -234,7 +201,6 @@
     cursor: pointer;
 }
 
-/* ---- Form actions (footer) ---- */
 
 .form-actions {
     display: flex;
@@ -282,10 +248,6 @@
     line-height: 1;
 }
 
-/* ==========================================================================
-   RIGHT PANEL
-   ========================================================================== */
-
 .right-panel {
     flex: 1 1 auto;
     display: flex;
@@ -297,8 +259,6 @@
     overflow: hidden;
     min-height: 480px;
 }
-
-/* ---- Toolbar ---- */
 
 .task-toolbar {
     display: flex;
@@ -342,9 +302,6 @@
     background-color: rgba(0, 0, 0, 0.06);
 }
 
-/* Ícones reais via mask (usa os svgs de assets/icons ao invés do emoji do JS).
-   O JS atual manda &#128065; (olho) pro search-button, mas o design mostra
-   lupa + lápis — segui o design e mapeei magnify.svg / pencil-outline.svg. */
 
 .search-button {
     font-size: 0;
@@ -382,20 +339,11 @@
     mask-repeat: no-repeat;
 }
 
-/* ---- Task list ---- */
-
 .task-list {
     display: flex;
     flex-direction: column;
     padding: 0 0 12px;
 }
-
-/* Os itens da lista (linhas com checkbox + texto + eye/edit/trash) não vêm
-   definidos no InitialPageView.js que você me passou — devem ser montados
-   em outro arquivo/componente. Deixei aqui um bloco padrão (.task-item)
-   pronto pra usar assim que você me passar (ou eu ver) esse componente,
-   seguindo o mesmo visual do print. Ajusta os nomes de classe se
-   necessário. */
 
 .task-item {
     display: flex;
@@ -488,10 +436,6 @@
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
 }
-
-/* ==========================================================================
-   RESPONSIVO (básico)
-   ========================================================================== */
 
 @media (max-width: 1000px) {
     .initial-content {
