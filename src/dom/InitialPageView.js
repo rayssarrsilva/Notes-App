@@ -1,18 +1,10 @@
-// Initial page
-// Add task
-import Header from "../dom/Header.js";
+// InitialPageView.js
+// Content of Initial Page / Add Task
 
-export default function InitialPage(navigation) {
-    const page = document.createElement("main");
-    page.classList.add("main-initial");
+export default function InitialPageView() {
 
-    page.append(Header(navigation));
-
-    // Conteúdo principal
     const content = document.createElement("section");
     content.classList.add("initial-content");
-
-    // ================= LEFT =================
 
     const leftPanel = document.createElement("section");
     leftPanel.classList.add("left-panel");
@@ -20,8 +12,6 @@ export default function InitialPage(navigation) {
     const title = document.createElement("h1");
     title.textContent = "Notes App";
     title.classList.add("title-app");
-
-    // ---------- Form ----------
 
     const form = document.createElement("form");
     form.classList.add("task-form");
@@ -35,6 +25,7 @@ export default function InitialPage(navigation) {
     description.placeholder = "Type your task description...";
     description.classList.add("task-description");
 
+
     const endDate = document.createElement("input");
     endDate.type = "date";
     endDate.classList.add("task-date");
@@ -43,22 +34,35 @@ export default function InitialPage(navigation) {
     priority.classList.add("task-priority");
 
     ["Low", "Medium", "High"].forEach(level => {
+
         const option = document.createElement("option");
+
         option.value = level;
         option.textContent = level;
+
         priority.append(option);
     });
 
     const projects = document.createElement("select");
     projects.classList.add("task-project");
 
+    const defaultProject = document.createElement("option");
+    defaultProject.textContent = "Project";
+    defaultProject.value = "";
+
+    projects.append(defaultProject);
+
     const cancel = document.createElement("button");
+
     cancel.type = "button";
     cancel.textContent = "Cancel";
+    cancel.classList.add("cancel-task-button");
 
     const addTask = document.createElement("button");
+
     addTask.type = "submit";
     addTask.textContent = "Add Task";
+    addTask.classList.add("add-task-button");
 
     form.append(
         taskName,
@@ -70,25 +74,35 @@ export default function InitialPage(navigation) {
         addTask
     );
 
-    leftPanel.append(title, form);
 
-    // ================= RIGHT =================
+    leftPanel.append(
+        title,
+        form
+    );
 
     const rightPanel = document.createElement("section");
+
     rightPanel.classList.add("right-panel");
 
     const toolbar = document.createElement("div");
+
     toolbar.classList.add("task-toolbar");
 
     const search = document.createElement("input");
+
     search.type = "text";
     search.placeholder = "Search";
+    search.classList.add("task-search");
 
     const searchButton = document.createElement("button");
+
     searchButton.type = "button";
+    searchButton.classList.add("search-button");
 
     const editButton = document.createElement("button");
+
     editButton.type = "button";
+    editButton.classList.add("edit-button");
 
     toolbar.append(
         search,
@@ -97,7 +111,10 @@ export default function InitialPage(navigation) {
     );
 
     const taskList = document.createElement("section");
+
     taskList.classList.add("task-list");
+
+    taskList.id = "task-list";
 
     rightPanel.append(
         toolbar,
@@ -109,7 +126,6 @@ export default function InitialPage(navigation) {
         rightPanel
     );
 
-    page.append(content);
 
-    return page;
+    return content;
 }
