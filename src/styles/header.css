@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Grandstander';
-    src: url('Grandstander-ThinItalic.woff2') format('woff2'),
-        url('Grandstander-ThinItalic.woff') format('woff');
+    src: url('../assets/fonts/grandstander_/Grandstander-ThinItalic.woff2') format('woff2'),
+        url('../assets/fonts/grandstander_/Grandstander-ThinItalic.woff') format('woff');
     font-weight: 100;
     font-style: italic;
     font-display: swap;
@@ -9,8 +9,8 @@
 
 @font-face {
     font-family: 'Grandstander';
-    src: url('Grandstander-Thin.woff2') format('woff2'),
-        url('Grandstander-Thin.woff') format('woff');
+    src: url('../assets/fonts/grandstander_/Grandstander-Thin.woff2') format('woff2'),
+        url('../assets/fonts/grandstander_/Grandstander-Thin.woff') format('woff');
     font-weight: 100;
     font-style: normal;
     font-display: swap;
