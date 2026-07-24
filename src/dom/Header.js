@@ -4,7 +4,7 @@ import addTaskicon from "../assets/icons/addTask.svg"
 import myTaskicon from "../assets/icons/myTask.svg"
 import reportingicon from "../assets/icons/reporting.svg"
 
-export default function Header(){
+export default function Header(navigationApp){
     const header = document.createElement("header");
 
     const nav = document.createElement("nav");
@@ -20,6 +20,7 @@ export default function Header(){
         { title: "Reporting", icon: reportingicon, id: "reporting"}
     ];
 
+
     buttons.forEach(button => {
         const btn = document.createElement("button");
         btn.classList.add("header-button");
@@ -33,9 +34,15 @@ export default function Header(){
         const span = document.createElement("span");
         span.textContent = button.title;
         span.classList.add("span-header");
-
+        
         btn.append(img, span);
         nav.append(btn);
+
+        btn.addEventListener("click", () => {
+            if (button.id === "addT"){
+                navigationApp.InitialPage();
+            }
+        });
     });
 
     header.append(nav);

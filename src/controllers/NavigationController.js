@@ -1,6 +1,6 @@
-import InitialPage from "../pages/InitialPage";
+import InitialPage from "../pages/InitialPage.js";
 
-export default class Navigation {
+export default class NavigationApp {
     constructor(app){
         this.app = app;
     }
