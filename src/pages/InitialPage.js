@@ -2,16 +2,21 @@
 // Add task
 
 import Header from "../dom/Header.js";
+import InitialPageView from "../dom/InitialPageView.js";
 
-export default function InitialPage(NavigationApp) {
-    
+
+export default function InitialPage(navigation) {
+
     const page = document.createElement("main");
 
+    page.classList.add("main-initial");
+
+
     page.append(
-        Header(NavigationApp)
+        Header(navigation),
+        InitialPageView()
     );
 
-    page.classList.add("main-initial");
 
     return page;
 }
