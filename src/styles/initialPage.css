@@ -1,232 +1,504 @@
-.main-initial {
-    min-height: 100vh;
-    background: #ffffff;
-    font-family: "Arial", sans-serif;
+/* ==========================================================================
+   initial.css
+   Estilos da Initial Page / Add Task (dom/initial)
+
+   Fonte: Grandstander (assumido que os @font-face de outros pesos, ex:
+   Regular/700, já existem no seu arquivo de fontes — usei font-weight
+   400 e 700 abaixo).
+
+   Paleta:
+   --color-gold        (#B3851C) -> destaques, botões, título, end date
+   --color-green       (#00682B) -> barra lateral do right-panel, prioridade "high"
+   --color-gray        (#A3A3A3) -> textos secundários, bordas suaves
+   Cores extras de prioridade (não informadas, assumi um low/medium/high
+   padrão semáforo): vermelho para High, o próprio dourado para Medium,
+   verde institucional para Low/ok.
+   ========================================================================== */
+
+:root {
+    --color-gold: #B3851C;
+    --color-green: #00682B;
+    --color-green-soft: #9FC0A9; /* tint claro do verde, usado na barra do right-panel (assumido, não informado) */
+    --color-gray: #A3A3A3;
+    --color-black: #1a1a1a;
+    --color-bg-card: #ffffff;
+    --color-bg-page: #fdf9f2;
+
+    --priority-high: #c0392b;
+    --priority-medium: var(--color-gold);
+    --priority-low: var(--color-green);
+
+    --icon-magnify: url('../assets/icons/magnify.svg');
+    --icon-pencil: url('../assets/icons/pencil-outline.svg');
+    --icon-close: url('../assets/icons/close.svg');
+    --icon-plus: url('../assets/icons/plus.svg');
+    --icon-eye: url('../assets/icons/eye.svg');
+    --icon-trash: url('../assets/icons/trash-can.svg');
+    --icon-checkbox-blank: url('../assets/icons/checkbox-blank-outline.svg');
+    --icon-checkbox-checked: url('../assets/icons/checkbox-outline.svg');
+
+    --font-hand: 'Grandstander', cursive, sans-serif;
 }
+
+/* ==========================================================================
+   CONTAINER GERAL
+   ========================================================================== */
 
 .initial-content {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
-
-    padding: 40px 70px;
-    gap: 40px;
+    gap: 48px;
+    width: 100%;
+    padding: 40px 48px;
+    font-family: var(--font-hand);
+    color: var(--color-black);
+    box-sizing: border-box;
 }
+
+.initial-content * {
+    box-sizing: border-box;
+    font-family: var(--font-hand);
+}
+
+/* ==========================================================================
+   LEFT PANEL
+   ========================================================================== */
 
 .left-panel {
-    width: 45%;
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    flex-shrink: 0;
 }
 
+.title-container {
+    margin-bottom: 32px;
+}
 
 .title-app {
-    font-size: 34px;
+    font-size: 2.6rem;
     font-weight: 700;
-    margin-bottom: 60px;
-
-    position: relative;
-    color: #111;
+    margin: 0;
+    color: var(--color-black);
 }
 
-.title-app::after {
-    content: "→";
-
-    position: absolute;
-    left: 55px;
-    top: 35px;
-
-    color: #c69200;
-    font-size: 40px;
+.title-arrow {
+    display: inline-block;
+    margin-top: -6px;
+    margin-left: 4px;
+    font-size: 1.6rem;
+    color: var(--color-gold);
+    letter-spacing: 2px;
+    transform: skewX(-6deg);
 }
+
+/* ---- Form card ---- */
 
 .task-form {
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-black);
+    border-radius: 18px;
+    padding: 28px 28px 20px;
+}
 
-    width: 260px;
-    min-height: 120px;
+.form-body {
+    display: flex;
+    gap: 28px;
+}
 
-    padding: 14px;
+/* Left column: name + description */
 
-    display: grid;
-    grid-template-columns: 1fr 70px;
-    gap: 10px;
-
-    background: white;
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,0.15);
+.form-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .task-name {
-    grid-column: 1 / 2;
-
     border: none;
+    border-bottom: 2px solid var(--color-black);
+    padding: 4px 2px 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: transparent;
     outline: none;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    color: #555;
 }
 
 .task-name::placeholder {
-    color: #777;
+    color: var(--color-black);
+    opacity: 0.85;
 }
 
 .task-description {
-
-    grid-column: 1 / 2;
-
-    height: 45px;
-
     resize: none;
-
-    border: 1px solid #ddd;
-
-    font-size: 10px;
-
-    padding: 5px;
-}
-
-.task-date {
-
-    grid-column: 2;
-
-    height: 22px;
-
-    border: none;
-
-    background: #eee;
-
-    font-size: 8px;
-}
-
-.task-priority,
-.task-project {
-
-    grid-column: 2;
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 12px;
-
-    color: #555;
-}
-
-.task-form button {
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 11px;
-
-    cursor: pointer;
-
-    color: #777;
-}
-
-
-.task-form button:last-child {
-
-    color: #888;
-}
-
-.right-panel {
-
-    width: 45%;
-    height: 450px;
-
-    background: white;
-
-    border-left: 14px solid #b7d1c5;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.15);
-
-    padding: 15px;
-
-}
-
-.task-toolbar {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: flex-end;
-
-    gap: 10px;
-
-    margin-bottom: 20px;
-}
-
-
-.task-toolbar input {
-
-    width: 170px;
-
-    height: 14px;
-
-    border-radius: 10px;
-
-    border: none;
-
-    background: #ddd;
-
+    border: 1.5px solid var(--color-gray);
+    border-radius: 8px;
+    padding: 10px 12px;
+    min-height: 140px;
+    font-size: 0.95rem;
+    color: var(--color-black);
     outline: none;
 }
 
+.task-description::placeholder {
+    color: var(--color-gray);
+}
 
-.task-toolbar button {
+.task-description:focus,
+.task-name:focus {
+    border-color: var(--color-gold);
+}
 
-    width: 16px;
-    height: 16px;
+/* Right column: end date / priority / projects */
 
+.form-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 150px;
+    flex-shrink: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+/* End date -> pill dourado, texto branco (dd/mm/aaaa) */
+
+.task-date {
     border: none;
-
-    background: transparent;
-
+    border-radius: 999px;
+    background: var(--color-gold);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    text-align: center;
+    outline: none;
     cursor: pointer;
-
-    position: relative;
 }
 
-.task-toolbar button:first-of-type::before {
-
-    content: "⌕";
-
-    font-size: 20px;
-
+.task-date::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
 }
 
-.task-toolbar button:last-child::before {
+/* Priority */
 
-    content: "✎";
-
-    font-size: 16px;
-
+.priority-label-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
+
+.priority-icon {
+    color: var(--priority-high);
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.task-priority {
+    border: none;
+    border-bottom: 2px solid var(--color-black);
+    background: transparent;
+    font-size: 0.9rem;
+    padding: 4px 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.task-priority option[value="high"] { color: var(--priority-high); }
+.task-priority option[value="medium"] { color: var(--priority-medium); }
+.task-priority option[value="low"] { color: var(--priority-low); }
+
+/* Projects -> pill cinza claro */
+
+.task-project {
+    border: none;
+    border-radius: 999px;
+    background: #e9e9e9;
+    color: var(--color-black);
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* ---- Form actions (footer) ---- */
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    padding-top: 14px;
+}
+
+.cancel-task-button,
+.add-task-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    font-family: var(--font-hand);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+}
+
+.cancel-task-button {
+    color: var(--color-gray);
+}
+
+.cancel-task-button:hover {
+    background-color: rgba(163, 163, 163, 0.12);
+}
+
+.add-task-button {
+    color: var(--color-black);
+}
+
+.add-task-button:hover {
+    background-color: rgba(179, 133, 28, 0.12);
+    color: var(--color-gold);
+}
+
+.btn-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   RIGHT PANEL
+   ========================================================================== */
+
+.right-panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-card);
+    border: 1px solid #e5e5e5;
+    border-left: 14px solid var(--color-green-soft);
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 480px;
+}
+
+/* ---- Toolbar ---- */
+
+.task-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+}
+
+.task-search {
+    flex: 1 1 auto;
+    border: none;
+    background: #ececec;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.task-search:focus {
+    box-shadow: 0 0 0 2px var(--color-gold);
+}
+
+.search-button,
+.edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-black);
+    font-size: 1.1rem;
+    transition: background-color 0.15s ease;
+}
+
+.search-button:hover,
+.edit-button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Ícones reais via mask (usa os svgs de assets/icons ao invés do emoji do JS).
+   O JS atual manda &#128065; (olho) pro search-button, mas o design mostra
+   lupa + lápis — segui o design e mapeei magnify.svg / pencil-outline.svg. */
+
+.search-button {
+    font-size: 0;
+}
+
+.search-button::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: block;
+    background-color: var(--color-black);
+    -webkit-mask-image: var(--icon-magnify);
+    mask-image: var(--icon-magnify);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.edit-button {
+    font-size: 0;
+}
+
+.edit-button::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: block;
+    background-color: var(--color-black);
+    -webkit-mask-image: var(--icon-pencil);
+    mask-image: var(--icon-pencil);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+/* ---- Task list ---- */
 
 .task-list {
-
-    width: 100%;
-
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 12px;
 }
 
-.task-list::before {
+/* Os itens da lista (linhas com checkbox + texto + eye/edit/trash) não vêm
+   definidos no InitialPageView.js que você me passou — devem ser montados
+   em outro arquivo/componente. Deixei aqui um bloco padrão (.task-item)
+   pronto pra usar assim que você me passar (ou eu ver) esse componente,
+   seguindo o mesmo visual do print. Ajusta os nomes de classe se
+   necessário. */
 
-    content: "";
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    border-left: 4px solid var(--color-green);
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+}
 
-    display: block;
+.task-item:nth-child(even) {
+    background: #f2f2f2;
+}
 
-    height: 35px;
+.task-item.completed {
+    border-left-color: var(--color-gray);
+}
 
-    background: #eee;
+.task-item-checkbox {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    background-color: var(--color-black);
+    -webkit-mask-image: var(--icon-checkbox-blank);
+    mask-image: var(--icon-checkbox-blank);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    cursor: pointer;
+}
 
-    border-left: 3px solid #2f9b5f;
+.task-item.completed .task-item-checkbox {
+    -webkit-mask-image: var(--icon-checkbox-checked);
+    mask-image: var(--icon-checkbox-checked);
+    background-color: var(--color-gray);
+}
 
-    margin-bottom: 8px;
+.task-item-text {
+    flex: 1 1 auto;
+    font-size: 0.95rem;
+    color: var(--color-black);
+}
+
+.task-item.completed .task-item-text {
+    text-decoration: line-through;
+    color: var(--color-gray);
+}
+
+.task-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-item-actions button {
+    width: 18px;
+    height: 18px;
+    border: none;
+    background-color: var(--color-black);
+    cursor: pointer;
+    padding: 0;
+}
+
+.task-item-actions .view-task {
+    -webkit-mask-image: var(--icon-eye);
+    mask-image: var(--icon-eye);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.task-item-actions .edit-task {
+    -webkit-mask-image: var(--icon-pencil);
+    mask-image: var(--icon-pencil);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.task-item-actions .delete-task {
+    background-color: var(--priority-high);
+    -webkit-mask-image: var(--icon-trash);
+    mask-image: var(--icon-trash);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+/* ==========================================================================
+   RESPONSIVO (básico)
+   ========================================================================== */
+
+@media (max-width: 1000px) {
+    .initial-content {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+    }
 }

@@ -1,4 +1,5 @@
 import "./styles/header.css";
+import "./styles/InitialPage.css"
 
 import InitialPage from "./pages/InitialPage.js";
 import NavigationApp from "./controllers/NavigationController.js";
