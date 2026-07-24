@@ -1,0 +1,232 @@
+.main-initial {
+    min-height: 100vh;
+    background: #ffffff;
+    font-family: "Arial", sans-serif;
+}
+
+.initial-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding: 40px 70px;
+    gap: 40px;
+}
+
+.left-panel {
+    width: 45%;
+}
+
+
+.title-app {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 60px;
+
+    position: relative;
+    color: #111;
+}
+
+.title-app::after {
+    content: "→";
+
+    position: absolute;
+    left: 55px;
+    top: 35px;
+
+    color: #c69200;
+    font-size: 40px;
+}
+
+.task-form {
+
+    width: 260px;
+    min-height: 120px;
+
+    padding: 14px;
+
+    display: grid;
+    grid-template-columns: 1fr 70px;
+    gap: 10px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.15);
+}
+
+.task-name {
+    grid-column: 1 / 2;
+
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #555;
+}
+
+.task-name::placeholder {
+    color: #777;
+}
+
+.task-description {
+
+    grid-column: 1 / 2;
+
+    height: 45px;
+
+    resize: none;
+
+    border: 1px solid #ddd;
+
+    font-size: 10px;
+
+    padding: 5px;
+}
+
+.task-date {
+
+    grid-column: 2;
+
+    height: 22px;
+
+    border: none;
+
+    background: #eee;
+
+    font-size: 8px;
+}
+
+.task-priority,
+.task-project {
+
+    grid-column: 2;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 12px;
+
+    color: #555;
+}
+
+.task-form button {
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    color: #777;
+}
+
+
+.task-form button:last-child {
+
+    color: #888;
+}
+
+.right-panel {
+
+    width: 45%;
+    height: 450px;
+
+    background: white;
+
+    border-left: 14px solid #b7d1c5;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.15);
+
+    padding: 15px;
+
+}
+
+.task-toolbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+.task-toolbar input {
+
+    width: 170px;
+
+    height: 14px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    background: #ddd;
+
+    outline: none;
+}
+
+
+.task-toolbar button {
+
+    width: 16px;
+    height: 16px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.task-toolbar button:first-of-type::before {
+
+    content: "⌕";
+
+    font-size: 20px;
+
+}
+
+.task-toolbar button:last-child::before {
+
+    content: "✎";
+
+    font-size: 16px;
+
+}
+
+.task-list {
+
+    width: 100%;
+
+}
+
+.task-list::before {
+
+    content: "";
+
+    display: block;
+
+    height: 35px;
+
+    background: #eee;
+
+    border-left: 3px solid #2f9b5f;
+
+    margin-bottom: 8px;
+}
