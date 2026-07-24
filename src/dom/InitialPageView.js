@@ -5,9 +5,6 @@ export default function InitialPageView() {
     const content = document.createElement("section");
     content.classList.add("initial-content");
 
-    // ==========================================
-    // LEFT PANEL (Title + Form Card)
-    // ==========================================
     const leftPanel = document.createElement("section");
     leftPanel.classList.add("left-panel");
 
@@ -18,22 +15,18 @@ export default function InitialPageView() {
     title.textContent = "Notes App";
     title.classList.add("title-app");
 
-    // Seta decorativa apontando para a direita abaixo do título
     const titleArrow = document.createElement("span");
     titleArrow.classList.add("title-arrow");
     titleArrow.innerHTML = "&#10141;"; 
 
     titleContainer.append(title, titleArrow);
 
-    // Form Container (Card Branco)
     const form = document.createElement("form");
     form.classList.add("task-form");
 
-    // Conteúdo superior do Form (split em 2 colunas)
     const formBody = document.createElement("div");
     formBody.classList.add("form-body");
 
-    // Coluna Esquerda do Form (Nome e Descrição)
     const formLeftCol = document.createElement("div");
     formLeftCol.classList.add("form-left-col");
 
@@ -48,11 +41,9 @@ export default function InitialPageView() {
 
     formLeftCol.append(taskName, description);
 
-    // Coluna Direita do Form (End Date, Priority, Projects)
     const formRightCol = document.createElement("div");
     formRightCol.classList.add("form-right-col");
 
-    // Group: End Date
     const endDateGroup = document.createElement("div");
     endDateGroup.classList.add("form-group");
     const endDateLabel = document.createElement("label");
@@ -62,13 +53,11 @@ export default function InitialPageView() {
     endDate.classList.add("task-date");
     endDateGroup.append(endDateLabel, endDate);
 
-    // Group: Priority
     const priorityGroup = document.createElement("div");
     priorityGroup.classList.add("form-group");
     const priorityLabel = document.createElement("label");
     priorityLabel.textContent = "Priority";
     
-    // Ícone decorativo ao lado do Priority (opcional)
     const priorityIcon = document.createElement("span");
     priorityIcon.classList.add("priority-icon");
     priorityIcon.innerHTML = "&#10010;"; 
@@ -89,7 +78,6 @@ export default function InitialPageView() {
 
     priorityGroup.append(priorityLabelContainer, prioritySelect);
 
-    // Group: Projects
     const projectsGroup = document.createElement("div");
     projectsGroup.classList.add("form-group");
     const projectsLabel = document.createElement("label");
@@ -128,9 +116,6 @@ export default function InitialPageView() {
     form.append(formBody, formActions);
     leftPanel.append(titleContainer, form);
 
-    // ==========================================
-    // RIGHT PANEL (Toolbar + Notebook List)
-    // ==========================================
     const rightPanel = document.createElement("section");
     rightPanel.classList.add("right-panel");
 
@@ -160,9 +145,6 @@ export default function InitialPageView() {
 
     rightPanel.append(toolbar, taskList);
 
-    // ==========================================
-    // MAIN CONTENT ASSEMBLY
-    // ==========================================
     content.append(leftPanel, rightPanel);
 
     return content;
