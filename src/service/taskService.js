@@ -45,6 +45,9 @@ export default class TaskService {
 
     markIncomplete(id) {
         const task = this.tasks.find(task => task.id === id);
-        task?.complete = false;
+
+        if(task){
+            task.complete = false;
+        }
     }
 }
