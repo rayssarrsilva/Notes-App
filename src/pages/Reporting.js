@@ -1,7 +1,7 @@
 // ReportingPage.js
 // ATENÇÃO: mesmo aviso de sempre sobre o caminho do Header.js.
-import Header from "../components/Header.js";
-import ReportingView from "../dom/reporting/ReportingView.js";
+import Header from "../dom/Header.js";
+import ReportingView from "../dom/ReportingView.js";
 
 export default function ReportingPage(navigationApp) {
     const page = document.createElement("div");
