@@ -1,5 +1,5 @@
-import Header from "../components/Header.js";
-import AddProjectView from "../dom/addproject/AddProjectView.js";
+import Header from "../dom/Header.js";
+import AddProjectView from "../dom/AddProjectView.js";
 
 export default function AddProjectPage(navigationApp) {
     const page = document.createElement("div");

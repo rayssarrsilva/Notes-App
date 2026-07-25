@@ -1,5 +1,5 @@
-import Task from "../../models/task.js";
-import EditTaskView from "../dom/EditTaskView.js";
+import Task from "../models/task.js";
+import EditTaskView from "./EditTaskView.js";
 
 function getSampleTasks() {
     const names = [
