@@ -39,8 +39,21 @@ export default function Header(navigationApp){
         nav.append(btn);
 
         btn.addEventListener("click", () => {
-            if (button.id === "addT"){
-                navigationApp.InitialPage();
+            switch (button.id) {
+                case "addP":
+                    navigationApp.AddProjectPage();
+                    break;
+                case "myP":
+                    navigationApp.MyProjectsPage();
+                    break;
+                case "addT":
+                    navigationApp.InitialPage();
+                    break;
+                case "myT":
+                    navigationApp.MyTasksPage();
+                    break;
+                case "reporting":
+                    break;
             }
         });
     });
