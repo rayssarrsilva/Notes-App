@@ -1,52 +1,70 @@
-// dom/ProjectView.js
-// Content of the "Respective Project" page — nome, descrição, busca e as
-// tasks atreladas a este projeto. O preenchimento da lista é feito pelo
-// TaskController.bindProjectTasksPage.
-
-export default function ProjectView(project) {
+export default function ReportingView() {
     const content = document.createElement("section");
-    content.classList.add("project-content");
+    content.classList.add("reporting-content");
 
-    const panel = document.createElement("section");
-    panel.classList.add("project-panel");
+    const card = document.createElement("section");
+    card.classList.add("reporting-card");
 
-    const header = document.createElement("div");
-    header.classList.add("project-header");
-
-    const title = document.createElement("h1");
-    title.classList.add("project-title");
-    title.textContent = project?.name ?? "";
+    const title = document.createElement("h2");
+    title.classList.add("reporting-header");
+    title.textContent = "REPORTING";
 
     const toolbar = document.createElement("div");
-    toolbar.classList.add("task-toolbar");
+    toolbar.classList.add("reporting-toolbar");
 
-    const searchInput = document.createElement("input");
-    searchInput.type = "text";
-    searchInput.classList.add("task-search");
+    const search = document.createElement("input");
+    search.id = "reporting-search";
+    search.classList.add("task-search");
+    search.placeholder = "Task ou Projeto";
 
-    const searchButton = document.createElement("button");
-    searchButton.type = "button";
-    searchButton.classList.add("search-button");
-    searchButton.innerHTML = "&#128065;";
+    const button = document.createElement("button");
+    button.classList.add("search-button");
 
-    const editButton = document.createElement("button");
-    editButton.type = "button";
-    editButton.classList.add("edit-button");
-    editButton.innerHTML = "&#9998;";
+    toolbar.append(search, button);
 
-    toolbar.append(searchInput, searchButton, editButton);
-    header.append(title, toolbar);
+    const priority = document.createElement("select");
+    priority.id = "reporting-priority";
 
-    const description = document.createElement("p");
-    description.classList.add("project-description");
-    description.textContent = project?.description || "";
+    [
+        "Todas",
+        "Low",
+        "Medium",
+        "High"
+    ].forEach(text => {
+        const option = document.createElement("option");
+        option.value = text;
+        option.textContent = text;
+        priority.append(option);
+    });
+
+    // datas
+
+    const dates = document.createElement("div");
+    dates.classList.add("reporting-dates");
+
+    const start = document.createElement("input");
+    start.type = "date";
+    start.id = "reporting-start";
+
+    const end = document.createElement("input");
+    end.type = "date";
+    end.id = "reporting-end";
+
+    dates.append(start, end);
 
     const list = document.createElement("div");
-    list.classList.add("task-list");
-    list.id = "task-list";
+    list.id = "reporting-list";
+    list.classList.add("reporting-list");
 
-    panel.append(header, description, list);
-    content.append(panel);
+    card.append(
+        title,
+        toolbar,
+        priority,
+        dates,
+        list
+    );
+
+    content.append(card);
 
     return content;
 }

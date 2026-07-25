@@ -3,30 +3,126 @@ export default class ReportingController {
         this.taskService = taskService;
     }
 
-    bindReportingPage(containerEl) {
-        const searchInput = containerEl.querySelector("#reporting-search");
-        const searchButton = containerEl.querySelector(".reporting-toolbar .search-button");
-        const list = containerEl.querySelector("#reporting-list");
+    bindReportingPage(container) {
 
-        const render = (filterText = "") => {
-            if (!list) return;
+        const search =
+            container.querySelector("#reporting-search");
+
+        const priority =
+            container.querySelector("#reporting-priority");
+
+        const start =
+            container.querySelector("#reporting-start");
+
+        const end =
+            container.querySelector("#reporting-end");
+
+        const button =
+            container.querySelector(".search-button");
+
+        const list =
+            container.querySelector("#reporting-list");
+
+        const render = () => {
+
             list.replaceChildren();
 
-            const query = filterText.trim().toLowerCase();
+            const query =
+                search.value.trim().toLowerCase();
 
-            this.taskService.getTaskList()
-                .filter(task => !query || (task.projects || "").toLowerCase().includes(query))
-                .forEach(task => {
-                    const row = document.createElement("div");
-                    row.classList.add("reporting-item");
-                    row.textContent = task.projects || "—";
-                    list.append(row);
+            const selectedPriority =
+                priority.value;
+
+            const startDate =
+                start.value
+                    ? new Date(start.value)
+                    : null;
+
+            const endDate =
+                end.value
+                    ? new Date(end.value)
+                    : null;
+
+            const tasks = this.taskService
+                .getTaskList()
+                .filter(task => {
+
+                    const matchesName =
+                        !query ||
+
+                        task.title
+                            ?.toLowerCase()
+                            .includes(query) ||
+
+                        task.projects
+                            ?.toLowerCase()
+                            .includes(query);
+
+                    const matchesPriority =
+                        selectedPriority === "Todas" ||
+                        task.priority === selectedPriority;
+
+                    let matchesDate = true;
+
+                    if (startDate || endDate) {
+
+                        const due =
+                            new Date(task.dueDate);
+
+                        if (startDate)
+                            matchesDate =
+                                matchesDate &&
+                                due >= startDate;
+
+                        if (endDate)
+                            matchesDate =
+                                matchesDate &&
+                                due <= endDate;
+                    }
+
+                    return (
+                        matchesName &&
+                        matchesPriority &&
+                        matchesDate
+                    );
                 });
+
+            tasks.forEach(task => {
+
+                const item =
+                    document.createElement("div");
+
+                item.classList.add("reporting-item");
+
+                item.innerHTML = `
+
+                    <strong>${task.title}</strong>
+
+                    <div>Projeto: ${task.projects}</div>
+
+                    <div>Prioridade: ${task.priority}</div>
+
+                    <div>Data: ${task.dueDate}</div>
+
+                `;
+
+                list.append(item);
+
+            });
+
         };
 
         render();
 
-        searchInput?.addEventListener("input", (event) => render(event.target.value));
-        searchButton?.addEventListener("click", () => render(searchInput?.value ?? ""));
+        search.addEventListener("input", render);
+
+        priority.addEventListener("change", render);
+
+        start.addEventListener("change", render);
+
+        end.addEventListener("change", render);
+
+        button.addEventListener("click", render);
+
     }
 }
