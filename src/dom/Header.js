@@ -53,6 +53,7 @@ export default function Header(navigationApp){
                     navigationApp.MyTasksPage();
                     break;
                 case "reporting":
+                    navigationApp.ReportingPage();
                     break;
             }
         });
