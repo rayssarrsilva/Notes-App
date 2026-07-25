@@ -1,7 +1,8 @@
 import InitialPage from "../pages/InitialPage.js";
-import MyTasksPage from "../pages/MyTask.js";
-import MyProjectsPage from "../pages/MyProjects.js";
-import AddProjectPage from "../pages/AddProject.js";
+import MyTasksPage from "../pages/MyTasksPage.js";
+import MyProjectsPage from "../pages/MyProjectsPage.js";
+import AddProjectPage from "../pages/AddProjectPage.js";
+import ReportingPage from "../pages/ReportingPage.js";
 
 export default class NavigationApp {
     constructor(app){
@@ -33,6 +34,12 @@ export default class NavigationApp {
     AddProjectPage() {
         this.render(
             AddProjectPage(this)
+        );
+    }
+
+    ReportingPage() {
+        this.render(
+            ReportingPage(this)
         );
     }
 }
