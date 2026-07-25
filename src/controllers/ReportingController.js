@@ -1,25 +1,32 @@
-// controllers/ReportingController.js
 export default class ReportingController {
-    constructor(taskService, viewElement) {
+    constructor(taskService) {
         this.taskService = taskService;
-        this.view = viewElement;
-
-        this.completedCountEl = this.view.querySelector("#completed-tasks-count");
-        this.pendingCountEl = this.view.querySelector("#pending-tasks-count");
-
-        this.init();
     }
 
-    init() {
-        this.updateMetrics();
-    }
+    bindReportingPage(containerEl) {
+        const searchInput = containerEl.querySelector("#reporting-search");
+        const searchButton = containerEl.querySelector(".reporting-toolbar .search-button");
+        const list = containerEl.querySelector("#reporting-list");
 
-    updateMetrics() {
-        const tasks = this.taskService.getTaskList();
-        const completed = tasks.filter(t => t.complete).length;
-        const pending = tasks.length - completed;
+        const render = (filterText = "") => {
+            if (!list) return;
+            list.replaceChildren();
 
-        if (this.completedCountEl) this.completedCountEl.textContent = completed;
-        if (this.pendingCountEl) this.pendingCountEl.textContent = pending;
+            const query = filterText.trim().toLowerCase();
+
+            this.taskService.getTaskList()
+                .filter(task => !query || (task.projects || "").toLowerCase().includes(query))
+                .forEach(task => {
+                    const row = document.createElement("div");
+                    row.classList.add("reporting-item");
+                    row.textContent = task.projects || "—";
+                    list.append(row);
+                });
+        };
+
+        render();
+
+        searchInput?.addEventListener("input", (event) => render(event.target.value));
+        searchButton?.addEventListener("click", () => render(searchInput?.value ?? ""));
     }
 }

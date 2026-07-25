@@ -4,6 +4,8 @@ import "./styles/addProject.css"
 import "./styles/myprojects.css"
 import "./styles/mytasks.css"
 import "./styles/editTask.css"
+import "./styles/reporting.css"
+
 
 import InitialPage from "./pages/InitialPage.js";
 import NavigationApp from "./controllers/NavigationController.js";
