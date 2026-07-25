@@ -1,0 +1,146 @@
+:root {
+    --color-gold: #B3851C;
+    --color-green: #00682B;
+    --color-gray: #A3A3A3;
+    --color-black: #1a1a1a;
+    --priority-high: #c0392b;
+    --font-hand: 'Grandstander', cursive, sans-serif;
+}
+
+.edittask-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 20, 20, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.edittask-card {
+    width: 420px;
+    max-width: calc(100vw - 48px);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    padding: 26px 28px 20px;
+    font-family: var(--font-hand);
+}
+
+.edittask-card * {
+    box-sizing: border-box;
+    font-family: var(--font-hand);
+}
+
+.edittask-name {
+    width: 100%;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-black);
+    margin-bottom: 14px;
+    outline: none;
+    padding: 2px 0;
+}
+
+.edittask-name:focus {
+    border-bottom: 2px solid var(--color-gold);
+}
+
+.edittask-body {
+    display: flex;
+    gap: 24px;
+}
+
+.edittask-description {
+    flex: 1 1 auto;
+    min-height: 110px;
+    resize: none;
+    border: 1.5px solid var(--color-gray);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.edittask-description:focus {
+    border-color: var(--color-gold);
+}
+
+.edittask-info-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 18px;
+    width: 130px;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.edittask-info-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.edittask-date {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-black);
+}
+
+.edittask-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.priority-icon {
+    color: var(--priority-high);
+    font-size: 0.85rem;
+}
+
+.edittask-project-value {
+    font-size: 0.9rem;
+    color: var(--color-black);
+}
+
+.edittask-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 12px;
+}
+
+.cancel-task-button,
+.add-task-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    font-family: var(--font-hand);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.cancel-task-button {
+    color: var(--color-gray);
+}
+
+.cancel-task-button:hover {
+    background-color: rgba(163, 163, 163, 0.12);
+}
+
+.add-task-button {
+    color: var(--color-black);
+}
+
+.add-task-button:hover {
+    background-color: rgba(179, 133, 28, 0.12);
+    color: var(--color-gold);
+}
