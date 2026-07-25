@@ -1,17 +1,37 @@
 // controllers/TaskController.js
-// Ponte entre TaskService (dados/regras) e as Views (HTML puro).
+// Ponte entre TaskService/ProjectService (dados/regras) e as Views (HTML puro).
 import Task from "../models/task.js";
 import EditTaskView from "../dom/EditTaskView.js";
 import ViewTaskView from "../dom/ViewTaskView.js";
 import { createTaskItem } from "../dom/TaskItemView.js";
 
 export default class TaskController {
-    constructor(taskService) {
+    constructor(taskService, projectService) {
         this.taskService = taskService;
+        this.projectService = projectService;
     }
 
     getTasks() {
         return this.taskService.getTaskList();
+    }
+
+    populateProjectSelect(select, selectedName = "") {
+        if (!select) return;
+
+        select.replaceChildren();
+
+        const empty = document.createElement("option");
+        empty.value = "";
+        empty.textContent = "Select Project";
+        select.append(empty);
+
+        this.projectService.getProjectList().forEach((project) => {
+            const option = document.createElement("option");
+            option.value = project.name;
+            option.textContent = project.name;
+            if (project.name === selectedName) option.selected = true;
+            select.append(option);
+        });
     }
 
     getItemHandlers(refresh) {
@@ -41,6 +61,7 @@ export default class TaskController {
 
     openEditModal(task, refresh) {
         const modal = EditTaskView(task, {
+            projects: this.projectService.getProjectList(),
             onSave: (updates) => {
                 this.taskService.updateTask(task.id, updates);
                 refresh();
@@ -75,6 +96,8 @@ export default class TaskController {
         searchInput?.addEventListener("input", refresh);
 
         if (!form) return;
+
+        this.populateProjectSelect(form.querySelector(".task-project"));
 
         form.addEventListener("submit", (event) => {
             event.preventDefault();

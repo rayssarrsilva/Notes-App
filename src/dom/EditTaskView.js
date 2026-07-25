@@ -1,4 +1,4 @@
-export default function EditTaskView(task, { onSave, onCancel } = {}) {
+export default function EditTaskView(task, { onSave, onCancel, projects = [] } = {}) {
 
     const overlay = document.createElement("div");
     overlay.classList.add("edittask-overlay");
@@ -30,35 +30,89 @@ export default function EditTaskView(task, { onSave, onCancel } = {}) {
 
     const endDateGroup = document.createElement("div");
     endDateGroup.classList.add("edittask-info-group");
-    const endDate = document.createElement("span");
-    endDate.classList.add("edittask-date");
-    endDate.textContent = task?.endDate || "dd/mm/aaaa";
-    endDateGroup.append(endDate);
+    const endDateLabel = document.createElement("label");
+    endDateLabel.textContent = "End date";
+    const endDateInput = document.createElement("input");
+    endDateInput.type = "date";
+    endDateInput.classList.add("edittask-date");
+    endDateInput.value = task?.endDate || "";
+    endDateGroup.append(endDateLabel, endDateInput);
 
     const priorityGroup = document.createElement("div");
     priorityGroup.classList.add("edittask-info-group");
     const priorityLabel = document.createElement("span");
     priorityLabel.classList.add("edittask-label");
     priorityLabel.textContent = "Priority";
-    const priorityIcon = document.createElement("span");
-    priorityIcon.classList.add("priority-icon");
-    priorityIcon.innerHTML = "&#10010;";
-    priorityGroup.append(priorityLabel, priorityIcon);
+
+    const priorityOptions = document.createElement("div");
+    priorityOptions.classList.add("edittask-priority-options");
+    priorityOptions.style.display = "flex";
+    priorityOptions.style.gap = "6px";
+
+    let selectedPriority = task?.priority || "medium";
+
+    const priorityColors = {
+        high: "#e5484d",
+        medium: "#f5c518",
+        low: "#3fb950",
+    };
+
+    const priorityButtons = {};
+
+    Object.keys(priorityColors).forEach((level) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.classList.add("priority-dot", `priority-${level}`);
+        btn.title = level.charAt(0).toUpperCase() + level.slice(1);
+        btn.style.width = "22px";
+        btn.style.height = "22px";
+        btn.style.borderRadius = "50%";
+        btn.style.border = "2px solid transparent";
+        btn.style.cursor = "pointer";
+        btn.style.backgroundColor = priorityColors[level];
+        btn.style.opacity = selectedPriority === level ? "1" : "0.35";
+        btn.style.outline = selectedPriority === level ? "2px solid #333" : "none";
+
+        btn.addEventListener("click", () => {
+            selectedPriority = level;
+            Object.entries(priorityButtons).forEach(([lvl, b]) => {
+                b.style.opacity = lvl === level ? "1" : "0.35";
+                b.style.outline = lvl === level ? "2px solid #333" : "none";
+            });
+        });
+
+        priorityButtons[level] = btn;
+        priorityOptions.append(btn);
+    });
+
+    priorityGroup.append(priorityLabel, priorityOptions);
 
     const projectGroup = document.createElement("div");
     projectGroup.classList.add("edittask-info-group");
-    const projectLabel = document.createElement("span");
-    projectLabel.classList.add("edittask-label");
-    projectLabel.textContent = "Project:";
-    const projectValue = document.createElement("span");
-    projectValue.classList.add("edittask-project-value");
-    projectValue.textContent = task?.projects || "—";
-    projectGroup.append(projectLabel, projectValue);
+    const projectLabel = document.createElement("label");
+    projectLabel.textContent = "Project";
+
+    const projectSelect = document.createElement("select");
+    projectSelect.classList.add("edittask-project");
+
+    const emptyOption = document.createElement("option");
+    emptyOption.value = "";
+    emptyOption.textContent = "No project";
+    projectSelect.append(emptyOption);
+
+    projects.forEach((project) => {
+        const option = document.createElement("option");
+        option.value = project.name;
+        option.textContent = project.name;
+        if (project.name === task?.projects) option.selected = true;
+        projectSelect.append(option);
+    });
+
+    projectGroup.append(projectLabel, projectSelect);
 
     infoCol.append(endDateGroup, priorityGroup, projectGroup);
     body.append(description, infoCol);
 
-    // Actions
     const actions = document.createElement("div");
     actions.classList.add("edittask-actions");
 
@@ -79,6 +133,9 @@ export default function EditTaskView(task, { onSave, onCancel } = {}) {
         const updated = {
             name: nameInput.value,
             description: description.value,
+            endDate: endDateInput.value,
+            priority: selectedPriority,
+            projects: projectSelect.value,
         };
         overlay.remove();
         onSave && onSave(updated);

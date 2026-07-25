@@ -5,46 +5,43 @@ import AddProjectPage from "../pages/AddProject.js";
 import ReportingPage from "../pages/Reporting.js";
 import TaskService from "../service/taskService.js";
 import ProjectService from "../service/projectService.js";
+import TaskController from "../controllers/TaskController.js";
 
 export default class NavigationApp {
-    constructor(app){
+    constructor(app) {
         this.app = app;
 
         this.TaskService = new TaskService();
         this.ProjectService = new ProjectService();
+
+        this.taskController = new TaskController(this.TaskService, this.ProjectService);
     }
 
-    render(page){
+    render(page) {
         this.app.replaceChildren(page);
     }
 
     InitialPage() {
-        this.render(
-            InitialPage(this)
-        );
+        const page = InitialPage(this);
+        this.render(page);
+        this.taskController.bindInitialPage(page);
     }
 
     MyTasksPage() {
-        this.render(
-            MyTasksPage(this)
-        );
+        const page = MyTasksPage(this);
+        this.render(page);
+        this.taskController.bindMyTasksPage(page);
     }
 
     MyProjectsPage() {
-        this.render(
-            MyProjectsPage(this)
-        );
+        this.render(MyProjectsPage(this));
     }
 
     AddProjectPage() {
-        this.render(
-            AddProjectPage(this)
-        );
+        this.render(AddProjectPage(this));
     }
 
     ReportingPage() {
-        this.render(
-            ReportingPage(this)
-        );
+        this.render(ReportingPage(this));
     }
 }
