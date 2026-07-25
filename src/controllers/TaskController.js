@@ -1,10 +1,9 @@
-// TaskController.js
+// controllers/TaskController.js
 // Ponte entre TaskService (dados/regras) e as Views (HTML puro).
-// Sugestão de caminho: controllers/TaskController.js
 import Task from "../models/task.js";
-import EditTaskView from "../dom/edittask/EditTaskView.js";
-import ViewTaskView from "../dom/edittask/ViewTaskView.js";
-import { createTaskItem } from "../dom/shared/TaskItemView.js";
+import EditTaskView from "../dom/EditTaskView.js";
+import ViewTaskView from "../dom/ViewTaskView.js";
+import { createTaskItem } from "../dom/TaskItemView.js";
 
 export default class TaskController {
     constructor(taskService) {
@@ -15,52 +14,48 @@ export default class TaskController {
         return this.taskService.getTaskList();
     }
 
-    getTasksByProject(projectName) {
-        return this.getTasks().filter(task => task.projects === projectName);
-    }
-
-    getItemHandlers(onChange) {
+    getItemHandlers(refresh) {
         return {
             onToggle: (task) => {
                 task.complete
                     ? this.taskService.markIncomplete(task.id)
                     : this.taskService.markComplete(task.id);
-                onChange && onChange();
+                refresh();
             },
             onDelete: (task) => {
                 this.taskService.removeTask(task.id);
-                onChange && onChange();
+                refresh();
             },
-            onView: (task) => this.openViewModal(task, onChange),
-            onEdit: (task) => this.openEditModal(task, onChange),
+            onView: (task) => this.openViewModal(task, refresh),
+            onEdit: (task) => this.openEditModal(task, refresh),
         };
     }
 
-    openViewModal(task, onChange) {
+    openViewModal(task, refresh) {
         const modal = ViewTaskView(task, {
             onClose: () => {},
-            onEdit: (t) => this.openEditModal(t, onChange),
+            onEdit: (t) => this.openEditModal(t, refresh),
         });
         document.body.append(modal);
     }
 
-    openEditModal(task, onChange) {
+    openEditModal(task, refresh) {
         const modal = EditTaskView(task, {
             onSave: (updates) => {
                 this.taskService.updateTask(task.id, updates);
-                onChange && onChange();
+                refresh();
             },
             onCancel: () => {},
         });
         document.body.append(modal);
     }
 
-    renderInto(listEl, onChange, { filterText = "", projectName = null } = {}) {
+    renderInto(listEl, refresh, { filterText = "", projectName = null } = {}) {
         if (!listEl) return;
         listEl.replaceChildren();
 
         const query = filterText.trim().toLowerCase();
-        const handlers = this.getItemHandlers(onChange);
+        const handlers = this.getItemHandlers(refresh);
 
         this.getTasks()
             .filter(task => projectName === null || task.projects === projectName)
@@ -68,16 +63,16 @@ export default class TaskController {
             .forEach(task => listEl.append(createTaskItem(task, handlers)));
     }
 
-    bindInitialPage(containerEl, onChange) {
+    bindInitialPage(containerEl) {
         const form = containerEl.querySelector(".task-form");
         const list = containerEl.querySelector("#task-list");
         const searchInput = containerEl.querySelector(".task-search");
 
-        this.renderInto(list, onChange);
+        const refresh = () =>
+            this.renderInto(list, refresh, { filterText: searchInput?.value || "" });
+        refresh();
 
-        searchInput?.addEventListener("input", (e) => {
-            this.renderInto(list, onChange, { filterText: e.target.value });
-        });
+        searchInput?.addEventListener("input", refresh);
 
         if (!form) return;
 
@@ -94,32 +89,35 @@ export default class TaskController {
 
             this.taskService.addTask(new Task(name, description, endDate, priority, projects));
             form.reset();
-            onChange && onChange();
+            refresh();
         });
 
         const cancelBtn = form.querySelector(".cancel-task-button");
         cancelBtn?.addEventListener("click", () => form.reset());
     }
 
-    bindMyTasksPage(containerEl, onChange) {
+    bindMyTasksPage(containerEl) {
         const list = containerEl.querySelector("#mytasks-list");
         const searchInput = containerEl.querySelector(".task-search");
 
-        this.renderInto(list, onChange);
+        const refresh = () =>
+            this.renderInto(list, refresh, { filterText: searchInput?.value || "" });
+        refresh();
 
-        searchInput?.addEventListener("input", (e) => {
-            this.renderInto(list, onChange, { filterText: e.target.value });
-        });
+        searchInput?.addEventListener("input", refresh);
     }
 
-    bindProjectTasksPage(containerEl, project, onChange) {
+    bindProjectTasksPage(containerEl, project) {
         const list = containerEl.querySelector("#task-list") || containerEl.querySelector("#projecttasks-list");
         const searchInput = containerEl.querySelector(".task-search");
 
-        this.renderInto(list, onChange, { projectName: project?.name });
+        const refresh = () =>
+            this.renderInto(list, refresh, {
+                filterText: searchInput?.value || "",
+                projectName: project?.name,
+            });
+        refresh();
 
-        searchInput?.addEventListener("input", (e) => {
-            this.renderInto(list, onChange, { filterText: e.target.value, projectName: project?.name });
-        });
+        searchInput?.addEventListener("input", refresh);
     }
 }

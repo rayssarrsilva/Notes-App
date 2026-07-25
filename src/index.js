@@ -15,10 +15,3 @@ const app = document.body;
 const navigationApp = new NavigationApp(app);
 
 navigationApp.InitialPage();
-
-const routes = {
-    "home": () => navigationApp.InitialPage(),
-    "tasks": () => navigationApp.MyTasksPage(),
-    "projects": () => navigationApp.MyProjectsPage(),
-    "reporting": () => navigationApp.ReportingPage()
-};
