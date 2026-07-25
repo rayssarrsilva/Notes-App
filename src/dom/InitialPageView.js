@@ -1,5 +1,6 @@
 // InitialPageView.js
 // Content of Initial Page / Add Task
+import { createPriorityPicker } from "./PriorityPicker.js";
 
 export default function InitialPageView() {
     const content = document.createElement("section");
@@ -57,26 +58,21 @@ export default function InitialPageView() {
     priorityGroup.classList.add("form-group");
     const priorityLabel = document.createElement("label");
     priorityLabel.textContent = "Priority";
-    
-    const priorityIcon = document.createElement("span");
-    priorityIcon.classList.add("priority-icon");
-    priorityIcon.innerHTML = "&#10010;"; 
-    
-    const prioritySelect = document.createElement("select");
-    prioritySelect.classList.add("task-priority");
 
-    ["Low", "Medium", "High"].forEach(level => {
-        const option = document.createElement("option");
-        option.value = level.toLowerCase();
-        option.textContent = level;
-        prioritySelect.append(option);
-    });
-    
     const priorityLabelContainer = document.createElement("div");
     priorityLabelContainer.classList.add("priority-label-container");
-    priorityLabelContainer.append(priorityLabel, priorityIcon);
+    priorityLabelContainer.append(priorityLabel);
 
-    priorityGroup.append(priorityLabelContainer, prioritySelect);
+    const priorityHidden = document.createElement("input");
+    priorityHidden.type = "hidden";
+    priorityHidden.classList.add("task-priority");
+    priorityHidden.value = "medium";
+
+    const priorityPicker = createPriorityPicker("medium", (level) => {
+        priorityHidden.value = level;
+    });
+
+    priorityGroup.append(priorityLabelContainer, priorityPicker.element, priorityHidden);
 
     const projectsGroup = document.createElement("div");
     projectsGroup.classList.add("form-group");
@@ -97,7 +93,6 @@ export default function InitialPageView() {
 
     formBody.append(formLeftCol, formRightCol);
 
-    // Ações do Form (Footer com Cancel e Add Task)
     const formActions = document.createElement("div");
     formActions.classList.add("form-actions");
 
@@ -114,6 +109,12 @@ export default function InitialPageView() {
     formActions.append(cancel, addTask);
 
     form.append(formBody, formActions);
+
+    form.addEventListener("reset", () => {
+        priorityPicker.setValue("medium");
+        priorityHidden.value = "medium";
+    });
+
     leftPanel.append(titleContainer, form);
 
     const rightPanel = document.createElement("section");
@@ -130,12 +131,12 @@ export default function InitialPageView() {
     const searchButton = document.createElement("button");
     searchButton.type = "button";
     searchButton.classList.add("search-button");
-    searchButton.innerHTML = "&#128065;"; // Ícone do olho / lupa
+    searchButton.innerHTML = "&#128065;"; 
 
     const editButton = document.createElement("button");
     editButton.type = "button";
     editButton.classList.add("edit-button");
-    editButton.innerHTML = "&#9998;"; // Ícone de lápis
+    editButton.innerHTML = "&#9998;";
 
     toolbar.append(searchInput, searchButton, editButton);
 
