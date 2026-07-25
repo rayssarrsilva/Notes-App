@@ -8,6 +8,7 @@ import TaskService from "../service/taskService.js";
 import ProjectService from "../service/projectService.js";
 import TaskController from "../controllers/TaskController.js";
 import ProjectController from "../controllers/ProjectController.js";
+import ReportingController from "./ReportingController.js";
 
 export default class NavigationApp {
     constructor(app) {
@@ -16,6 +17,7 @@ export default class NavigationApp {
         this.TaskService = new TaskService();
         this.ProjectService = new ProjectService();
 
+        this.reportingController = new ReportingController(this.TaskService);
         this.taskController = new TaskController(this.TaskService, this.ProjectService);
         this.projectController = new ProjectController(this.ProjectService);
     }
@@ -64,6 +66,10 @@ export default class NavigationApp {
     }
 
     ReportingPage() {
-        this.render(ReportingPage(this));
-    }
+    const page = ReportingPage(this);
+
+    this.render(page);
+
+    this.reportingController.bindReportingPage(page);
+}
 }

@@ -50,7 +50,7 @@ export default class ReportingController {
                     const matchesName =
                         !query ||
 
-                        task.title
+                        task.name
                             ?.toLowerCase()
                             .includes(query) ||
 
@@ -67,7 +67,7 @@ export default class ReportingController {
                     if (startDate || endDate) {
 
                         const due =
-                            new Date(task.dueDate);
+                            new Date(task.endDate);
 
                         if (startDate)
                             matchesDate =
@@ -96,13 +96,13 @@ export default class ReportingController {
 
                 item.innerHTML = `
 
-                    <strong>${task.title}</strong>
+                    <strong>${task.name}</strong>
 
                     <div>Projeto: ${task.projects}</div>
 
                     <div>Prioridade: ${task.priority}</div>
 
-                    <div>Data: ${task.dueDate}</div>
+                    <div>Data: ${task.endDate}</div>
 
                 `;
 
