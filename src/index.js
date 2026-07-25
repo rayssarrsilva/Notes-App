@@ -1,5 +1,9 @@
 import "./styles/header.css";
 import "./styles/InitialPage.css"
+import "./styles/addProject.css"
+import "./styles/myprojects.css"
+import "./styles/mytasks.css"
+import "./styles/editTask.css"
 
 import InitialPage from "./pages/InitialPage.js";
 import NavigationApp from "./controllers/NavigationController.js";
