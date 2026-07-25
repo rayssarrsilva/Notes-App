@@ -3,10 +3,15 @@ import MyTasksPage from "../pages/MyTask.js";
 import MyProjectsPage from "../pages/MyProjects.js";
 import AddProjectPage from "../pages/AddProject.js";
 import ReportingPage from "../pages/Reporting.js";
+import TaskService from "../service/taskService.js";
+import ProjectService from "../service/projectService.js";
 
 export default class NavigationApp {
     constructor(app){
         this.app = app;
+
+        this.TaskService = new TaskService();
+        this.ProjectService = new ProjectService();
     }
 
     render(page){
