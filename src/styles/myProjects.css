@@ -1,0 +1,113 @@
+:root {
+    --color-gold: #B3851C;
+    --color-gray: #A3A3A3;
+    --color-black: #1a1a1a;
+    --icon-myproject: url('../assets/icons/myprojects.svg');
+    --icon-eye: url('../assets/icons/eye.svg');
+    --font-hand: 'Grandstander', cursive, sans-serif;
+}
+
+.myprojects-content {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 48px;
+    font-family: var(--font-hand);
+    color: var(--color-black);
+    box-sizing: border-box;
+}
+
+.myprojects-content * {
+    box-sizing: border-box;
+    font-family: var(--font-hand);
+}
+
+.title-container-center {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.title-app {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.title-arrow {
+    display: inline-block;
+    margin-top: -4px;
+    margin-left: 4px;
+    font-size: 1.3rem;
+    color: var(--color-gold);
+    transform: skewX(-6deg);
+}
+
+
+.myprojects-card {
+    background: #ffffff;
+    border: 1px solid var(--color-gray);
+    border-radius: 28px;
+    padding: 28px;
+}
+
+.myprojects-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--color-gold);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.myprojects-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: var(--color-gold);
+    -webkit-mask-image: var(--icon-myproject);
+    mask-image: var(--icon-myproject);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.myprojects-list {
+    border: 1px solid var(--color-gray);
+    border-radius: 20px;
+    padding: 12px 28px;
+}
+
+.myprojects-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.myprojects-item:last-child {
+    border-bottom: none;
+}
+
+.myprojects-item-name {
+    font-size: 1.05rem;
+    color: var(--color-black);
+}
+
+.view-project {
+    width: 18px;
+    height: 18px;
+    border: none;
+    background-color: var(--color-black);
+    cursor: pointer;
+    padding: 0;
+    -webkit-mask-image: var(--icon-eye);
+    mask-image: var(--icon-eye);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
