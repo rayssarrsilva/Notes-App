@@ -1,38 +1,24 @@
-const sampleResults = ["Study", "Study", "Study", "Study", "Study", "Study"];
+// dom/ProjectView.js
+// Content of the "Respective Project" page — nome, descrição, busca e as
+// tasks atreladas a este projeto. O preenchimento da lista é feito pelo
+// TaskController.bindProjectTasksPage.
 
-function createResultRow(text) {
-    const row = document.createElement("div");
-    row.classList.add("reporting-item");
-    row.textContent = text;
-    return row;
-}
-
-export default function ReportingView() {
+export default function ProjectView(project) {
     const content = document.createElement("section");
-    content.classList.add("reporting-content");
+    content.classList.add("project-content");
 
-    const titleContainer = document.createElement("div");
-    titleContainer.classList.add("title-container");
-
-    const title = document.createElement("h1");
-    title.textContent = "Notes App";
-    title.classList.add("title-app");
-
-    const titleArrow = document.createElement("span");
-    titleArrow.classList.add("title-arrow");
-    titleArrow.innerHTML = "&#10141;";
-
-    titleContainer.append(title, titleArrow);
-
-    const card = document.createElement("section");
-    card.classList.add("reporting-card");
+    const panel = document.createElement("section");
+    panel.classList.add("project-panel");
 
     const header = document.createElement("div");
-    header.classList.add("reporting-header");
-    header.textContent = "FILTER";
+    header.classList.add("project-header");
+
+    const title = document.createElement("h1");
+    title.classList.add("project-title");
+    title.textContent = project?.name ?? "";
 
     const toolbar = document.createElement("div");
-    toolbar.classList.add("reporting-toolbar");
+    toolbar.classList.add("task-toolbar");
 
     const searchInput = document.createElement("input");
     searchInput.type = "text";
@@ -41,21 +27,26 @@ export default function ReportingView() {
     const searchButton = document.createElement("button");
     searchButton.type = "button";
     searchButton.classList.add("search-button");
+    searchButton.innerHTML = "&#128065;";
 
-    toolbar.append(searchInput, searchButton);
+    const editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.classList.add("edit-button");
+    editButton.innerHTML = "&#9998;";
+
+    toolbar.append(searchInput, searchButton, editButton);
+    header.append(title, toolbar);
+
+    const description = document.createElement("p");
+    description.classList.add("project-description");
+    description.textContent = project?.description || "";
 
     const list = document.createElement("div");
-    list.classList.add("reporting-list");
-    list.id = "reporting-list";
+    list.classList.add("task-list");
+    list.id = "task-list";
 
-    sampleResults.forEach(text => list.append(createResultRow(text)));
-
-    card.append(header, toolbar, list);
-
-    const badge = document.createElement("div");
-    badge.classList.add("reporting-badge");
-
-    content.append(titleContainer, card, badge);
+    panel.append(header, description, list);
+    content.append(panel);
 
     return content;
 }
