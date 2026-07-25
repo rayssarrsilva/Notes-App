@@ -2,7 +2,7 @@
 // Renderiza uma linha de projeto (nome + editar + apagar).
 // Clicar no nome abre a página do projeto; o lápis abre o modal de editar.
 
-export function createProjectItem(project, handlers = {}) {
+export default function createProjectItem(project, handlers = {}) {
     const { onOpen, onEdit, onDelete } = handlers;
 
     const row = document.createElement("div");

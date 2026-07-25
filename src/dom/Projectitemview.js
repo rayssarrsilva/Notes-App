@@ -1,9 +1,10 @@
 // dom/ProjectItemView.js
-// Renderiza uma linha de projeto (nome + editar + apagar).
-// Usado tanto na lista da página Add Project quanto na My Projects.
+// Renderiza uma linha de projeto (nome + ver + apagar).
+// O olho abre a página do projeto (nome, descrição e tasks dele).
+// Editar o projeto agora acontece dentro dessa página (lápis do toolbar).
 
 export function createProjectItem(project, handlers = {}) {
-    const { onEdit, onDelete } = handlers;
+    const { onOpen, onDelete } = handlers;
 
     const row = document.createElement("div");
     row.classList.add("myprojects-item", "addproject-item");
@@ -13,14 +14,13 @@ export function createProjectItem(project, handlers = {}) {
     name.classList.add("myprojects-item-name");
     name.textContent = project.name;
     name.style.cursor = "pointer";
-    name.addEventListener("click", () => onEdit && onEdit(project));
+    name.addEventListener("click", () => onOpen && onOpen(project));
 
-    const editBtn = document.createElement("button");
-    editBtn.type = "button";
-    editBtn.classList.add("view-project");
-    editBtn.setAttribute("aria-label", "edit project");
-    editBtn.innerHTML = "&#9998;";
-    editBtn.addEventListener("click", () => onEdit && onEdit(project));
+    const openBtn = document.createElement("button");
+    openBtn.type = "button";
+    openBtn.classList.add("view-project");
+    openBtn.setAttribute("aria-label", "view project");
+    openBtn.addEventListener("click", () => onOpen && onOpen(project));
 
     const deleteBtn = document.createElement("button");
     deleteBtn.type = "button";
@@ -29,6 +29,6 @@ export function createProjectItem(project, handlers = {}) {
     deleteBtn.innerHTML = "&times;";
     deleteBtn.addEventListener("click", () => onDelete && onDelete(project));
 
-    row.append(name, editBtn, deleteBtn);
+    row.append(name, openBtn, deleteBtn);
     return row;
 }
