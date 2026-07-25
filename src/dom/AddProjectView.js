@@ -1,7 +1,7 @@
 // AddProjectView.js
 // Content of the "Add Project" page
 // Sugestão de caminho: dom/addproject/AddProjectView.js
-import Project from "../../models/project.js";
+import Project from "../models/project.js";
 
 function getSampleProjects() {
     return ["Vision Board", "Study", "Work"].map(name => new Project(name, ""));

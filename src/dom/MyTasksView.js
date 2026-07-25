@@ -1,4 +1,5 @@
 import Task from "../../models/task.js";
+import EditTaskView from "../dom/EditTaskView.js";
 
 function getSampleTasks() {
     const names = [
@@ -35,20 +36,34 @@ function createTaskItem(task) {
     const actions = document.createElement("div");
     actions.classList.add("task-item-actions");
 
+    const openEditModal = () => {
+        const modal = EditTaskView(task, {
+            onSave: (updated) => {
+                Object.assign(task, updated);
+                text.textContent = task.name;
+            },
+            onCancel: () => {},
+        });
+        document.body.append(modal);
+    };
+
     const viewBtn = document.createElement("button");
     viewBtn.type = "button";
     viewBtn.classList.add("view-task");
     viewBtn.setAttribute("aria-label", "view task");
+    viewBtn.addEventListener("click", openEditModal);
 
     const editBtn = document.createElement("button");
     editBtn.type = "button";
     editBtn.classList.add("edit-task");
     editBtn.setAttribute("aria-label", "edit task");
+    editBtn.addEventListener("click", openEditModal);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.type = "button";
     deleteBtn.classList.add("delete-task");
     deleteBtn.setAttribute("aria-label", "delete task");
+    deleteBtn.addEventListener("click", () => item.remove());
 
     actions.append(viewBtn, editBtn, deleteBtn);
     item.append(checkbox, text, actions);

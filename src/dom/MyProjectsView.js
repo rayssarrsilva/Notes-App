@@ -1,7 +1,4 @@
-// MyProjectsView.js
-// Content of the "My Projects" page
-// Sugestão de caminho: dom/myprojects/MyProjectsView.js
-import Project from "../../models/project.js";
+import Project from "../models/project.js";
 
 function getSampleProjects() {
     return ["vision board", "Work", "Study"].map(name => new Project(name, ""));
