@@ -1,3 +1,5 @@
+import { createPriorityPicker } from "./PriorityPicker.js";
+
 export default function EditTaskView(task, { onSave, onCancel, projects = [] } = {}) {
 
     const overlay = document.createElement("div");
@@ -44,48 +46,9 @@ export default function EditTaskView(task, { onSave, onCancel, projects = [] } =
     priorityLabel.classList.add("edittask-label");
     priorityLabel.textContent = "Priority";
 
-    const priorityOptions = document.createElement("div");
-    priorityOptions.classList.add("edittask-priority-options");
-    priorityOptions.style.display = "flex";
-    priorityOptions.style.gap = "6px";
+    const priorityPicker = createPriorityPicker(task?.priority || "medium");
 
-    let selectedPriority = task?.priority || "medium";
-
-    const priorityColors = {
-        high: "#e5484d",
-        medium: "#f5c518",
-        low: "#3fb950",
-    };
-
-    const priorityButtons = {};
-
-    Object.keys(priorityColors).forEach((level) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.classList.add("priority-dot", `priority-${level}`);
-        btn.title = level.charAt(0).toUpperCase() + level.slice(1);
-        btn.style.width = "22px";
-        btn.style.height = "22px";
-        btn.style.borderRadius = "50%";
-        btn.style.border = "2px solid transparent";
-        btn.style.cursor = "pointer";
-        btn.style.backgroundColor = priorityColors[level];
-        btn.style.opacity = selectedPriority === level ? "1" : "0.35";
-        btn.style.outline = selectedPriority === level ? "2px solid #333" : "none";
-
-        btn.addEventListener("click", () => {
-            selectedPriority = level;
-            Object.entries(priorityButtons).forEach(([lvl, b]) => {
-                b.style.opacity = lvl === level ? "1" : "0.35";
-                b.style.outline = lvl === level ? "2px solid #333" : "none";
-            });
-        });
-
-        priorityButtons[level] = btn;
-        priorityOptions.append(btn);
-    });
-
-    priorityGroup.append(priorityLabel, priorityOptions);
+    priorityGroup.append(priorityLabel, priorityPicker.element);
 
     const projectGroup = document.createElement("div");
     projectGroup.classList.add("edittask-info-group");
@@ -134,7 +97,7 @@ export default function EditTaskView(task, { onSave, onCancel, projects = [] } =
             name: nameInput.value,
             description: description.value,
             endDate: endDateInput.value,
-            priority: selectedPriority,
+            priority: priorityPicker.getValue(),
             projects: projectSelect.value,
         };
         overlay.remove();
