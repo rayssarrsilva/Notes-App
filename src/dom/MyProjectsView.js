@@ -1,26 +1,5 @@
-import Project from "../models/project.js";
-
-function getSampleProjects() {
-    return ["vision board", "Work", "Study"].map(name => new Project(name, ""));
-}
-
-function createProjectRow(project) {
-    const row = document.createElement("div");
-    row.classList.add("myprojects-item");
-    row.dataset.id = project.id;
-
-    const name = document.createElement("span");
-    name.classList.add("myprojects-item-name");
-    name.textContent = project.name;
-
-    const viewBtn = document.createElement("button");
-    viewBtn.type = "button";
-    viewBtn.classList.add("view-project");
-    viewBtn.setAttribute("aria-label", "view project");
-
-    row.append(name, viewBtn);
-    return row;
-}
+// MyProjectsView.js
+// Só monta o "casco": o preenchimento da lista é feito pelo ProjectController.
 
 export default function MyProjectsView() {
     const content = document.createElement("section");
@@ -49,8 +28,6 @@ export default function MyProjectsView() {
     const listBox = document.createElement("div");
     listBox.classList.add("myprojects-list");
     listBox.id = "myprojects-list";
-
-    getSampleProjects().forEach(project => listBox.append(createProjectRow(project)));
 
     card.append(header, listBox);
     content.append(titleContainer, card);

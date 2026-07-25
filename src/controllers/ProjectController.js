@@ -1,54 +1,93 @@
 // controllers/ProjectController.js
+// Ponte entre ProjectService (dados/regras) e as views (HTML puro).
+import Project from "../models/project.js";
+import EditProjectView from "../dom/EditProjectView.js";
+import { createProjectItem } from "../dom/ProjectItemView.js";
+
 export default class ProjectController {
-    constructor(projectService, viewElement) {
+    constructor(projectService) {
         this.projectService = projectService;
-        this.view = viewElement;
-
-        this.form = this.view.querySelector(".project-form");
-        this.projectNameInput = this.view.querySelector(".project-name");
-        this.projectListContainer = this.view.querySelector("#project-list");
-
-        this.init();
     }
 
-    init() {
-        this.bindEvents();
-        this.renderProjects();
+    getProjects() {
+        return this.projectService.getProjectList();
     }
 
-    bindEvents() {
-        if (this.form) {
-            this.form.addEventListener("submit", (e) => {
-                e.preventDefault();
-                this.handleAddProject();
-            });
-        }
+    getItemHandlers(refresh) {
+        return {
+            onEdit: (project) => this.openEditModal(project, refresh),
+            onDelete: (project) => {
+                this.projectService.removeProject(project.id);
+                refresh();
+            },
+        };
     }
 
-    handleAddProject() {
-        const name = this.projectNameInput.value.trim();
-        if (!name) return;
-
-        if (typeof this.projectService.addProject === "function") {
-            this.projectService.addProject(name);
-        }
-
-        this.form.reset();
-        this.renderProjects();
-    }
-
-    renderProjects() {
-        if (!this.projectListContainer) return;
-        this.projectListContainer.innerHTML = "";
-
-        const projects = this.projectService.getProjects ? this.projectService.getProjects() : [];
-
-        projects.forEach(project => {
-            const projectCard = document.createElement("div");
-            projectCard.classList.add("project-item");
-            projectCard.textContent = typeof project === "string" ? project : project.name;
-
-            this.projectListContainer.appendChild(projectCard);
+    openEditModal(project, refresh) {
+        const modal = EditProjectView(project, {
+            onSave: (updates) => {
+                this.projectService.updateProject(project.id, updates);
+                refresh();
+            },
+            onDelete: () => {
+                this.projectService.removeProject(project.id);
+                refresh();
+            },
+            onCancel: () => {},
         });
+        document.body.append(modal);
+    }
+
+    renderInto(listEl, refresh, { filterText = "" } = {}) {
+        if (!listEl) return;
+        listEl.replaceChildren();
+
+        const query = filterText.trim().toLowerCase();
+        const handlers = this.getItemHandlers(refresh);
+
+        this.getProjects()
+            .filter(project => !query || project.name.toLowerCase().includes(query))
+            .forEach(project => listEl.append(createProjectItem(project, handlers)));
+    }
+
+    bindAddProjectPage(containerEl) {
+        const form = containerEl.querySelector(".project-form");
+        const list = containerEl.querySelector("#addproject-list");
+        const searchInput = containerEl.querySelector(".task-search");
+
+        const refresh = () =>
+            this.renderInto(list, refresh, { filterText: searchInput?.value || "" });
+        refresh();
+
+        searchInput?.addEventListener("input", refresh);
+
+        if (!form) return;
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const name = form.querySelector(".project-name")?.value.trim();
+            if (!name) return;
+
+            const description = form.querySelector(".project-description")?.value ?? "";
+
+            this.projectService.addProject(new Project(name, description));
+            form.reset();
+            refresh();
+        });
+
+        const cancelBtn = form.querySelector(".cancel-task-button");
+        cancelBtn?.addEventListener("click", () => form.reset());
+    }
+
+    bindMyProjectsPage(containerEl) {
+        const list = containerEl.querySelector("#myprojects-list");
+        const searchInput = containerEl.querySelector(".task-search");
+
+        const refresh = () =>
+            this.renderInto(list, refresh, { filterText: searchInput?.value || "" });
+        refresh();
+
+        searchInput?.addEventListener("input", refresh);
     }
 }

@@ -1,11 +1,6 @@
 // AddProjectView.js
 // Content of the "Add Project" page
-// Sugestão de caminho: dom/addproject/AddProjectView.js
-import Project from "../models/project.js";
-
-function getSampleProjects() {
-    return ["Vision Board", "Study", "Work"].map(name => new Project(name, ""));
-}
+// Só monta o "casco": o preenchimento da lista é feito pelo ProjectController.
 
 export default function AddProjectView() {
     const content = document.createElement("section");
@@ -76,25 +71,9 @@ export default function AddProjectView() {
 
     toolbar.append(searchInput, searchButton, editButton);
 
-    const list = document.createElement("ol");
+    const list = document.createElement("div");
     list.classList.add("addproject-list");
     list.id = "addproject-list";
-
-    getSampleProjects().forEach(project => {
-        const li = document.createElement("li");
-        li.classList.add("addproject-item");
-        li.dataset.id = project.id;
-
-        const name = document.createElement("span");
-        name.textContent = project.name;
-
-        const viewBtn = document.createElement("button");
-        viewBtn.type = "button";
-        viewBtn.classList.add("view-project");
-
-        li.append(name, viewBtn);
-        list.append(li);
-    });
 
     rightPanel.append(toolbar, list);
     content.append(leftPanel, rightPanel);
