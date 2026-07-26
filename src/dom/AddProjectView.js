@@ -29,6 +29,7 @@ export default function AddProjectView() {
     projectName.type = "text";
     projectName.placeholder = "Enter project name..";
     projectName.classList.add("project-name");
+    projectName.required = true;
 
     const description = document.createElement("textarea");
     description.placeholder = "Type your project description...";

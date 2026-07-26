@@ -66,9 +66,12 @@ export default class ProjectController {
         form.addEventListener("submit", (event) => {
             event.preventDefault();
 
-            const name = form.querySelector(".project-name")?.value.trim();
-            if (!name) return;
+        const name = form.querySelector(".project-name")?.value.trim() ?? "";
 
+        if (!name) {
+            form.querySelector(".project-name").reportValidity();
+            return;
+        }
             const description = form.querySelector(".project-description")?.value ?? "";
 
             this.projectService.addProject(new Project(name, description));
