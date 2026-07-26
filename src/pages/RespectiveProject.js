@@ -1,17 +1,26 @@
 // pages/RespectiveProject.js
-// Página de detalhe de um projeto: nome, descrição (inserida na criação)
-// e as tasks que estão vinculadas a esse projeto.
-//
-// Montada com a DOM API direto (sem template string) de propósito: assim
-// funciona junto com qualquer padrão que as outras páginas já usem, sem
-// depender de um helper específico.
+// Página de detalhe de um projeto: header do app, nome do projeto,
+// descrição (inserida na criação) e as tasks vinculadas a ele.
+
+import Header from "../dom/Header.js";
 
 export default function RespectiveProjectPage(app, project) {
+    const page = document.createElement("div");
+    page.className = "respectiveproject-page";
+
+    const header = Header(app);
+
     const content = document.createElement("div");
     content.className = "respectiveproject-content";
 
     const titleContainer = document.createElement("div");
     titleContainer.className = "title-container";
+
+    const backButton = document.createElement("button");
+    backButton.type = "button";
+    backButton.className = "respectiveproject-back-button";
+    backButton.textContent = "← My Projects";
+    backButton.addEventListener("click", () => app.MyProjectsPage());
 
     const title = document.createElement("h1");
     title.className = "title-app";
@@ -24,7 +33,7 @@ export default function RespectiveProjectPage(app, project) {
     arrow.textContent = "→";
 
     title.append(titleText, arrow);
-    titleContainer.append(title);
+    titleContainer.append(backButton, title);
 
     const card = document.createElement("div");
     card.className = "respectiveproject-card";
@@ -65,6 +74,7 @@ export default function RespectiveProjectPage(app, project) {
     panel.append(toolbar, list);
 
     content.append(titleContainer, card, panel);
+    page.append(header, content);
 
-    return content;
+    return page;
 }
