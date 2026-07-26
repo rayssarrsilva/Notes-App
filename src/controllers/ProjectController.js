@@ -13,8 +13,9 @@ export default class ProjectController {
         return this.projectService.getProjectList();
     }
 
-    getItemHandlers(refresh) {
+    getItemHandlers(refresh, onOpenProject) {
         return {
+            onView: (project) => onOpenProject?.(project),
             onEdit: (project) => this.openEditModal(project, refresh),
             onDelete: (project) => {
                 this.projectService.removeProject(project.id);
@@ -38,25 +39,29 @@ export default class ProjectController {
         document.body.append(modal);
     }
 
-    renderInto(listEl, refresh, { filterText = "" } = {}) {
+    renderInto(listEl, refresh, { filterText = "", onOpenProject, listType = "myprojects" } = {}) {
         if (!listEl) return;
         listEl.replaceChildren();
 
         const query = filterText.trim().toLowerCase();
-        const handlers = this.getItemHandlers(refresh);
+        const handlers = this.getItemHandlers(refresh, onOpenProject);
 
         this.getProjects()
             .filter(project => !query || project.name.toLowerCase().includes(query))
-            .forEach(project => listEl.append(createProjectItem(project, handlers)));
+            .forEach(project => listEl.append(createProjectItem(project, handlers, listType)));
     }
 
-    bindAddProjectPage(containerEl) {
+    bindAddProjectPage(containerEl, { onOpenProject } = {}) {
         const form = containerEl.querySelector(".project-form");
         const list = containerEl.querySelector("#addproject-list");
         const searchInput = containerEl.querySelector(".task-search");
 
         const refresh = () =>
-            this.renderInto(list, refresh, { filterText: searchInput?.value || "" });
+            this.renderInto(list, refresh, {
+                filterText: searchInput?.value || "",
+                onOpenProject,
+                listType: "addproject",
+            });
         refresh();
 
         searchInput?.addEventListener("input", refresh);
@@ -83,12 +88,16 @@ export default class ProjectController {
         cancelBtn?.addEventListener("click", () => form.reset());
     }
 
-    bindMyProjectsPage(containerEl) {
+    bindMyProjectsPage(containerEl, { onOpenProject } = {}) {
         const list = containerEl.querySelector("#myprojects-list");
         const searchInput = containerEl.querySelector(".task-search");
 
         const refresh = () =>
-            this.renderInto(list, refresh, { filterText: searchInput?.value || "" });
+            this.renderInto(list, refresh, {
+                filterText: searchInput?.value || "",
+                onOpenProject,
+                listType: "myprojects",
+            });
         refresh();
 
         searchInput?.addEventListener("input", refresh);

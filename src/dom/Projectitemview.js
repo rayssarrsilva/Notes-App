@@ -1,34 +1,28 @@
 // dom/ProjectItemView.js
-// Renderiza uma linha de projeto (nome + ver + apagar).
-// O olho abre a página do projeto (nome, descrição e tasks dele).
-// Editar o projeto agora acontece dentro dessa página (lápis do toolbar).
+// Renderiza uma linha de projeto — reutilizado tanto na lista de
+// "Add Project" (#addproject-list) quanto em "My Projects"
+// (#myprojects-list). Como o CSS estiliza os dois contextos de forma
+// diferente (addproject-item tem numeração; myprojects-item não),
+// o listType decide qual classe usar no <li>.
 
-export function createProjectItem(project, handlers = {}) {
-    const { onOpen, onDelete } = handlers;
+export function createProjectItem(project, handlers = {}, listType = "myprojects") {
+    const isAddProjectList = listType === "addproject";
 
-    const row = document.createElement("div");
-    row.classList.add("myprojects-item", "addproject-item");
-    row.dataset.id = project.id;
+    const item = document.createElement("li");
+    item.className = isAddProjectList ? "addproject-item" : "myprojects-item";
+    item.dataset.projectId = project.id;
 
     const name = document.createElement("span");
-    name.classList.add("myprojects-item-name");
+    if (!isAddProjectList) name.className = "myprojects-item-name";
     name.textContent = project.name;
-    name.style.cursor = "pointer";
-    name.addEventListener("click", () => onOpen && onOpen(project));
 
-    const openBtn = document.createElement("button");
-    openBtn.type = "button";
-    openBtn.classList.add("view-project");
-    openBtn.setAttribute("aria-label", "view project");
-    openBtn.addEventListener("click", () => onOpen && onOpen(project));
+    const viewBtn = document.createElement("button");
+    viewBtn.type = "button";
+    viewBtn.className = "view-project";
+    viewBtn.title = `View ${project.name}`;
+    viewBtn.setAttribute("aria-label", `View ${project.name}`);
+    viewBtn.addEventListener("click", () => handlers.onView?.(project));
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.type = "button";
-    deleteBtn.classList.add("delete-project");
-    deleteBtn.setAttribute("aria-label", "delete project");
-    deleteBtn.innerHTML = "&times;";
-    deleteBtn.addEventListener("click", () => onDelete && onDelete(project));
-
-    row.append(name, openBtn, deleteBtn);
-    return row;
+    item.append(name, viewBtn);
+    return item;
 }
