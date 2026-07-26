@@ -1,13 +1,19 @@
 // operations that is about all tasks
 import Task from "../models/task.js";
+import { saveToStorage, loadFromStorage } from "./StorageService.js";
 
 export default class TaskService {
     constructor() {
-        this.tasks = [];
+        this.tasks = loadFromStorage("tasks");
+    }
+
+    save() {
+        saveToStorage("tasks", this.tasks);
     }
 
     addTask(task){
         this.tasks.push(task);
+        this.save();
     }
 
     getTaskList(){
@@ -18,6 +24,7 @@ export default class TaskService {
         const index = this.tasks.findIndex(task => task.id === id);
         if (index !== -1){
             this.tasks.splice(index, 1);
+            this.save();
             return true;
         } else {
             return false;
@@ -32,6 +39,7 @@ export default class TaskService {
         const index = this.tasks.findIndex(task => task.id === id);
         if (index !== -1){
             Object.assign(this.tasks[index], task);
+            this.save();
             return this.tasks[index];
         } else {
             return null;
@@ -41,6 +49,7 @@ export default class TaskService {
     markComplete(id) {
         const task = this.tasks.find(task => task.id === id);
         task && (task.complete = true);
+        this.save();
     }
 
     markIncomplete(id) {
@@ -49,5 +58,6 @@ export default class TaskService {
         if(task){
             task.complete = false;
         }
+        this.save();
     }
 }
