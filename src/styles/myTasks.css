@@ -149,6 +149,7 @@
     background: #fafafa;
     border-radius: var(--radius-sm);
     margin-left: var(--space-4); /* substitui o margin-left "solto" de 15px pela escala */
+    margin: 10px 15px 14px 20px;
 }
 
 .task-item.completed {

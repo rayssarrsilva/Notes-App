@@ -40,7 +40,7 @@
     justify-content: center;
     gap: var(--space-8);
     width: 100%;
-    max-width: 1440px;
+    max-width: 1700px;
     margin: 0 auto;
     padding: var(--space-8);
     font-family: var(--font-hand);
@@ -56,8 +56,14 @@
 .left-panel {
     display: flex;
     flex-direction: column;
-    flex: 0 0 480px;
-    width: 480px;
+    flex: 0 0 700px;
+    width: 700px;
+}
+
+form.task-form,
+.task-form {
+    width: 80vw;
+    max-width: none;
 }
 
 .title-container {
@@ -100,15 +106,16 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    flex: 1 1 auto;
-    min-width: 0;
+    flex: 1;
+    min-width: 420px;
 }
 
 .task-name {
+    width: 100%;
     border: none;
     border-bottom: 2px solid var(--color-black);
     padding: var(--space-1) 2px var(--space-3);
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 700;
     background: transparent;
     outline: none;
@@ -120,15 +127,16 @@
 }
 
 .task-description {
+    width: 100%;
     resize: none;
     border: 1.5px solid var(--color-gray);
     border-radius: 8px;
     padding: var(--space-3) var(--space-4);
-    min-height: 140px;
-    font-size: 0.95rem;
+    min-height: 190px;
+    font-size: 1rem;
     color: var(--color-black);
     outline: none;
-    flex: 1 1 auto;
+    flex: 1;
 }
 
 .task-description::placeholder {
@@ -144,10 +152,14 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
-    flex: 0 0 150px;
-    width: 150px;
+    flex: 0 0 180px;
+    width: 180px;
 }
 
+.form-left-col {
+    flex: 1;
+    min-width: 340px;
+}
 .form-group {
     display: flex;
     flex-direction: column;
@@ -241,6 +253,10 @@
     color: var(--color-gray);
 }
 
+section.initial-content {
+    display: flex;
+    flex-direction: column;
+}
 .cancel-task-button:hover {
     background-color: rgba(163, 163, 163, 0.12);
 }
@@ -270,6 +286,7 @@
     border-left: 14px solid var(--color-green-soft);
     border-radius: 16px;
     overflow: hidden;
+    min-height: 25vh;
 }
 
 .task-toolbar {
@@ -362,7 +379,7 @@
 
     .left-panel,
     .form-right-col {
-        width: 100%;
+        width: 50vw;
         flex: 1 1 auto;
     }
 

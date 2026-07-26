@@ -1,3 +1,5 @@
+// ReportingPage.js
+// ATENÇÃO: mesmo aviso de sempre sobre o caminho do Header.js.
 import Header from "../dom/Header.js";
 import ReportingView from "../dom/ReportingView.js";
 
