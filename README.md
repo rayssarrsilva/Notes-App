@@ -94,6 +94,9 @@ npm run deploy
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
+## Figma inspiration
+<img width="4400" height="3336" alt="Notes App" src="https://github.com/user-attachments/assets/a904f034-3c70-4653-b614-ca44c14022b9" />
+
 ## Author
 
 **Rayssa Roberta**
