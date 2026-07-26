@@ -32,15 +32,16 @@
 
 .addproject-content {
     display: flex;
-    align-items: stretch; /* colunas com a mesma altura (era flex-start) */
-    gap: var(--space-8);
+    flex-direction: column;
+    align-items: stretch; 
     width: 100%;
-    max-width: 1440px; /* evita esticar demais em telas ultra-wide */
+    max-width: 1440px; 
     margin: 0 auto;
-    padding: var(--space-8); /* espaçamento igual nos 4 lados */
+    padding: var(--space-8); 
     font-family: var(--font-hand);
     color: var(--color-black);
     box-sizing: border-box;
+    gap: 35px;
 }
 
 .addproject-content * {
@@ -83,6 +84,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+    width: 63vw;
 }
 
 /* Campos de entrada: largura total do form, pra dar o máximo de
