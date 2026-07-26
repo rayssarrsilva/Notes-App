@@ -1,4 +1,4 @@
-# NOTLS-APP
+# NOTES-APP
 
 A simple task and project manager built with vanilla JavaScript. Create projects, add tasks, link tasks to the projects they belong to, and keep track of everything with built-in search and reporting — all persisted locally in your browser.
 
