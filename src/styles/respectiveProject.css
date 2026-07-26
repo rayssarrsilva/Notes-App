@@ -90,6 +90,9 @@ button.respectiveproject-back-button {
     font-weight: 700;
     margin: 0;
     word-break: break-word;
+    padding-top: 5vw;
+    text-align: center;
+    gap: 20px;
 }
 
 .title-arrow {
@@ -112,6 +115,10 @@ button.respectiveproject-back-button {
     font-size: 0.95rem;
     line-height: 1.6;
     color: var(--color-black);
+}
+
+p.respectiveproject-description {
+    text-align: center;
 }
 
 .respectiveproject-description.is-empty {
