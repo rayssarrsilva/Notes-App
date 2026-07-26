@@ -22,8 +22,7 @@
 }
 
 .myprojects-content {
-    width: 100%;
-    max-width: 720px;
+    width: 80vw;
     margin: 0 auto;
     padding: var(--space-8);
     font-family: var(--font-hand);
