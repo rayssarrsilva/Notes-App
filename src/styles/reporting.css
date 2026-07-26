@@ -41,7 +41,6 @@
 }
 
 .reporting-card {
-    max-width: 480px;
     margin: 0 auto;
     background: #ffffff;
     border: 1px solid var(--color-gray);
