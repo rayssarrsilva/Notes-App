@@ -102,15 +102,36 @@ export default class TaskController {
         form.addEventListener("submit", (event) => {
             event.preventDefault();
 
-            const name = form.querySelector(".task-name")?.value.trim();
-            if (!name) return;
+        const name = form.querySelector(".task-name")?.value.trim() ?? "";
+        const description = form.querySelector(".task-description")?.value.trim() ?? "";
+        const endDate = form.querySelector(".task-date")?.value ?? "";
+        const priority = form.querySelector(".task-priority")?.value ?? "";
+        const projects = form.querySelector(".task-project")?.value ?? "";
 
-            const description = form.querySelector(".task-description")?.value ?? "";
-            const endDate = form.querySelector(".task-date")?.value ?? "";
-            const priority = form.querySelector(".task-priority")?.value ?? "medium";
-            const projects = form.querySelector(".task-project")?.value ?? "";
+        if (!name) {
+            alert("Task name is required.");
+            return;
+        }
 
-            this.taskService.addTask(new Task(name, description, endDate, priority, projects));
+        if (!endDate) {
+            alert("Due date is required.");
+            return;
+        }
+
+        if (!priority) {
+            alert("Priority is required.");
+            return;
+        }
+
+        this.taskService.addTask(
+            new Task(
+                name,
+                description,
+                endDate,
+                priority,
+                projects
+            )
+        );
             form.reset();
             refresh();
         });

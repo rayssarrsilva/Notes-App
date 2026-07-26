@@ -35,6 +35,7 @@ export default function InitialPageView() {
     taskName.type = "text";
     taskName.placeholder = "Enter task name..";
     taskName.classList.add("task-name");
+    taskName.required = true;
 
     const description = document.createElement("textarea");
     description.placeholder = "Type your task description...";
@@ -52,6 +53,7 @@ export default function InitialPageView() {
     const endDate = document.createElement("input");
     endDate.type = "date";
     endDate.classList.add("task-date");
+    endDate.required = true;
     endDateGroup.append(endDateLabel, endDate);
 
     const priorityGroup = document.createElement("div");
