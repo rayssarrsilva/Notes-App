@@ -24,6 +24,7 @@ A simple task and project manager built with vanilla JavaScript. Create projects
 - Search/filter tasks and projects
 - Reporting page with date and priority filters
 - Data persists in the browser via `localStorage` — nothing is lost on refresh
+- Web Storage API (Local Storage) allowing to reload the page or close it make your data persist
 
 ## Built With
 
