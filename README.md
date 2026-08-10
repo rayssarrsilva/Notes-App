@@ -2,6 +2,9 @@
 
 A simple task and project manager built with vanilla JavaScript. Create projects, add tasks, link tasks to the projects they belong to, and keep track of everything with built-in search and reporting — all persisted locally in your browser.
 
+## Demo
+<img width="1920" height="881" alt="notes" src="https://github.com/user-attachments/assets/c2171be9-a51c-4f12-b46c-e334debc6bb9" />
+
 ## Table of Contents
 
 - [Features](#features)
