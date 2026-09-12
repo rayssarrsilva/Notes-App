@@ -1,6 +1,6 @@
-name: Interface
-description: Report an interface bug/problem
-title: 
+name: Layout / UI Improvement
+description: Report or propose a visual, responsive, accessibility, or UX improvement.
+title: "[UI]: "
 labels:
   - design
   - needs-triage
@@ -22,7 +22,7 @@ body:
         - label: I searched existing issues and did not find a duplicate.
           required: true
 
-  - type: description
+  - type: textarea
     id: current_state
     attributes:
       label: Current State
